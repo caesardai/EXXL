@@ -2,34 +2,50 @@
  * 
 */
 
-
-// username: jshin@haverford.edu
-// password: Nl8j30d@5tOX
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost:27017/database');  // if localhost doesnt work, try 127.0.0.1
-// mongoose.connect('mongodb://127.0.0.1:27017/test') // test database
-// mongoose.connect('mongodb://127.0.0.1:27017/database')
 
-mongoose.connect(
-  `mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
+// ******* NOT SECURE. CHANGE EVENTUALLY ********
+mongoose.connect(`mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
 
-
-const { db } = require('./dataSchemas/User.js');
 var User = require('./dataSchemas/User.js');
+var Address = require('./dataSchemas/Address.js');
+var Event = require('./dataSchemas/Event.js');
+var Group = require('./dataSchemas/Group');
+
 main();
 
 async function main() {
-    
-    // clear existing Users in collection
+    await clearDatabase();
+    await populateDatabase();
+
+    // print users currently in database
+    var users = await User.find({});
+    console.log(users);
+
+    // update ed
+    const doc = await User.findOne({username: 'eds'});
+    const update = {smHandle: 'edis2coolforthis'};
+    await doc.updateOne(update);
+
+    const updatedDoc = await User.findOne({username: 'eds'});
+    console.log(updatedDoc);
+;
+}
+
+// nuke database
+async function clearDatabase() {
     await User.deleteMany({});
 
-    // create user
+}
+
+async function populateDatabase() {
+
     var newUser1 = new User({
         firstName: "Ed",
         lastName: "Shin",
-        username: "Ed2Shin", 
+        username: "eds", 
         pronouns: "He/Him", 
-        smHandle: "Ed2Shin",
+        // smHandle: "EdisCool",
         eventPostPermissions: true,
         eventRegisterPermissions: true,
         // list of users this user has interacted with
@@ -37,14 +53,16 @@ async function main() {
         // list of event data for this user
         userEvents: []
     });
-
-    // store user in collection
     await newUser1.save();
-    console.log("saved");
 
-    // print users currently in database
-    var users = await User.find({});
-    console.log(users);
+    var newUser2 = new User({
+        firstName: "Xavier",
+        lastName: "DeVore",
+        username: "xavierd", 
+    });
+    await newUser2.save()
+
+    
 
 }
 
