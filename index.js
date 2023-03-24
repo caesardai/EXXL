@@ -1,25 +1,31 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const jsdom = require('jsdom');
-const app = express();
+var express = require('express');
+var path = require('path');
+var fs = require('fs');
+var jsdom = require('jsdom');
+var app = express();
 const port = 3000;
 
-console.log(express);
+// using current directory
+app.use(express.static(__dirname));
 
 var mongoose = require('mongoose');
 mongoose.connect(`mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
 var User = require('./dataSchemas/User.js');
 
 // using jsdom to get HTML information from index.html
-const html = fs.readFileSync(path.join(__dirname, '/index.html'))
-const htmlDocument = new jsdom.JSDOM(html).window.document;
+var html = fs.readFileSync(path.join(__dirname, '/index.html'))
+var document = new jsdom.JSDOM(html).window.document;
 
 // import the Event class from Person.js
 var Event = require('./dataSchemas/Event.js');
 
-// using current directory
-app.use(express.static(__dirname));
+function changeBackgroundColor() {
+  var randomColor = Math.floor(Math.random()*16777215).toString(16);
+  document.getElementById("body").style.backgroundColor = "#" + randomColor;
+  console.log(document.getElementById("body").style.backgroundColor)
+}
+
+
 
 // sendFile will go here
 app.get('/', function(req, res) {
