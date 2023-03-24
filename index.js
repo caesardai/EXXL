@@ -15,6 +15,9 @@ var User = require('./dataSchemas/User.js');
 const html = fs.readFileSync(path.join(__dirname, '/index.html'))
 const htmlDocument = new jsdom.JSDOM(html).window.document;
 
+// import the Event class from Person.js
+var Event = require('./dataSchemas/Event.js');
+
 // using current directory
 app.use(express.static(__dirname));
 
@@ -28,6 +31,11 @@ app.use('/users', async(req, res) => {
 	var users = await User.find({});
 	console.log(users);
 });
+
+app.get('/events', function(req, res)  {
+  res.sendFile(path.join(__dirname + '/events.html'));
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
