@@ -5,9 +5,9 @@ var jsdom = require('jsdom');
 var app = express();
 const port = 3000;
 
-// setting opening window to login page
+// setting opening window to index page
 var options = {
-  index: "login.html"
+  index: "index.html"
 }
 
 // using current directory
