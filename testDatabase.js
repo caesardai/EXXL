@@ -62,6 +62,20 @@ async function populateDatabase() {
     });
     await newUser2.save()
 
+    var newUser3 = new User({
+        firstName: "Leo",
+        lastName: "Costa",
+        username: "leoc", 
+    });
+    await newUser3.save()
+
+    var newUser4 = new User({
+        firstName: "Xufeng",
+        lastName: "Dai",
+        username: "xufengd", 
+    });
+    await newUser4.save()
+
     
 
 }
