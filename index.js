@@ -33,7 +33,6 @@ function changeBackgroundColor() {
 	document.getElementById("body").style.backgroundColor = "#" + randomColor;
 }
 
-
 // empty endpoint (default)
 app.get('/', function(req, res) {
   	res.sendFile(path.join(__dirname, '/index.html'));
@@ -49,21 +48,46 @@ app.use('/users', async(req, res) => {
 	// TODO: Test case of empty database
 	if (users.length == 0) {
 		res.type('html').status(200);
-		res.write('There are no people');
+		res.write('There are no users in the database');
 		res.end();
 		return;
 	}
 	else {
 		res.type('html').status(200);
-		console.log(documentUser.getElementById("p1").innerHTML);
-		documentUser.getElementById("p1").textContent = "HELLO";
-		// res.write('Here are the users in the database:');
+		// console.log(documentUser.getElementById("p1").innerHTML);
+		// documentUser.getElementById("p1").textContent = "HELLO";
+		res.write('<b>Here are the users in the database:</b><br><br>');
+		users.forEach((user) => {
+			res.write(user.firstName + " " + user.lastName +
+				" (@" + user.username + ")");
+			if (user.pronouns) {
+				res.write(" – " + user.pronouns);
+			}
+			res.write("<br>");
+			res.write("<a href=\"/deleteUser?username=" + user.username + "\">[Delete]</a>");
+			res.write("<br><br>");
+		}); // couldn't add .sort({ 'username': 'asc' })
 	}
 
-	res.sendFile(path.join(__dirname, '/users.html'));
-	
+	// res.sendFile(path.join(__dirname, '/users.html'));
 	// console.log(users);
 });
+
+app.get('/deleteUser', async function(req, res)  {
+	var user = req.query.username;
+	if (!user) {
+		console.log("User not specified");
+	}
+	else {
+		console.log('req.get("username"):' + req.get("username"));
+		var deleted = await User.findOneAndRemove({ 'username' : user });
+		if (!deleted) {
+			console.log("Something went wrong deleting user @" + user);
+		}
+		else { console.log("Deleted!"); }
+	}
+	res.redirect('/users');
+})
 
 // events endpoint
 app.get('/events', function(req, res)  {
