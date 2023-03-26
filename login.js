@@ -2,14 +2,13 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var jsdom = require('jsdom');
-const { response } = require('express');
 var app = express();
 
 // using current directory
 app.use(express.static(__dirname));
 
 // using jsdom to get HTML information from index.html
-var html = fs.readFileSync(path.join(__dirname, '/index.html'))
+var html = fs.readFileSync(path.join(__dirname, '/login.html'))
 var document = new jsdom.JSDOM(html).window.document;
 
 async function onSubmitUsername() {
