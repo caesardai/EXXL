@@ -7,7 +7,7 @@ const port = 3000;
 
 // setting opening window to index page
 var options = {
-  index: "index.html"
+  	index: "index.html"
 }
 
 // using current directory
@@ -29,44 +29,63 @@ var Event = require('./dataSchemas/Event.js');
  * function that sets the background color of body of index.html to a random color
  */
 function changeBackgroundColor() {
-  var randomColor = Math.floor(Math.random()*16777215).toString(16);
-  document.getElementById("body").style.backgroundColor = "#" + randomColor;
+	var randomColor = Math.floor(Math.random()*16777215).toString(16);
+	document.getElementById("body").style.backgroundColor = "#" + randomColor;
 }
 
 
 // empty endpoint (default)
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
+  	res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 // users endpoint
 app.use('/users', async(req, res) => {
-	console.log(`User Page!`)
+	var userHTML = fs.readFileSync(path.join(__dirname, '/users.html'));
+	var documentUser = new jsdom.JSDOM(userHTML).window.document;
+	
 	var users = await User.find({});
-	console.log(users);
+
+	// TODO: Test case of empty database
+	if (users.length == 0) {
+		res.type('html').status(200);
+		res.write('There are no people');
+		res.end();
+		return;
+	}
+	else {
+		res.type('html').status(200);
+		console.log(documentUser.getElementById("p1").innerHTML);
+		documentUser.getElementById("p1").textContent = "HELLO";
+		// res.write('Here are the users in the database:');
+	}
+
+	res.sendFile(path.join(__dirname, '/users.html'));
+	
+	// console.log(users);
 });
 
 // events endpoint
 app.get('/events', function(req, res)  {
-  res.sendFile(path.join(__dirname + '/events.html'));
+	res.sendFile(path.join(__dirname + '/events.html'));
 })
 
 // hotspots endpoint
 app.get('/hotspots', function(req, res)  {
-  res.sendFile(path.join(__dirname + '/hotspots.html'));
+	res.sendFile(path.join(__dirname + '/hotspots.html'));
 })
 
 
 // login endpoint
 app.use('/login', async(req, res) => {
-  var users = await User.find({});
-  var returnArray = [];
-  users.forEach(element => {
-    returnArray.push(element.username);
-  });
-  res.send(returnArray);
+	var users = await User.find({});
+	var returnArray = [];
+	users.forEach(element => {
+		returnArray.push(element.username);
+	});
+	res.send(returnArray);
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+	console.log(`Example app listening on port ${port}`)
 });
