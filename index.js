@@ -51,9 +51,14 @@ app.get('/events', function(req, res)  {
   res.sendFile(path.join(__dirname + '/events.html'));
 })
 
+// hotspots endpoint
+app.get('/hotspots', function(req, res)  {
+  res.sendFile(path.join(__dirname + '/hotspots.html'));
+})
 
-// users endpoint
-app.use('/isAdminUser', async(req, res) => {
+
+// login endpoint
+app.use('/login', async(req, res) => {
   var users = await User.find({});
   var returnArray = [];
   users.forEach(element => {

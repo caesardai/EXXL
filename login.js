@@ -14,7 +14,7 @@ var document = new jsdom.JSDOM(html).window.document;
 
 async function onSubmitUsername() {
     const inputUsername = document.getElementById("usernameValue").value;
-    await fetch('http://localhost:3000/isAdminUser').then((response) => {
+    await fetch('http://localhost:3000/login').then((response) => {
         if (!response.ok) {
             const message = `Error: ${response.status}`;
             throw new Error(message);
