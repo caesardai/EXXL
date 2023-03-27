@@ -41,6 +41,8 @@ async function main() {
 async function clearDatabase() {
     await User.deleteMany({});
     await Group.deleteMany({});
+    await Event.deleteMany({});
+
 
 }
 
@@ -147,6 +149,41 @@ async function populateHotspotDatabase() {
     })
     await newGroup2.save();
 
+    var newEvent1 = new Event({
+        name: "Plenary", 
+        date: "Jan 1st, 2001",
+        location: "Haverford College",
+        host: "Wendy Raymond",
+        certification: true,
+        description: " ",
+        // interestedUsers: ["Alice", "Bob", "Cathy"],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent1.save();
+
+    var newEvent2 = new Event({
+        name: "Bryn Mawr Plenary", 
+        date: "Feb 2nd, 2002",
+        location: "Bryn Mawr College",
+        host: "Kimberly Cassidy",
+        certification: true,
+        description: " "
+        // interestedUsers: ["Alice", "Bob", "Cathy"]
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent2.save();
+
+    var newEvent3 = new Event({
+        name: "No Plenary",
+        date: "March 3rd, 2003",
+        location: "Swarthmore College",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent3.save();
 }
 
 

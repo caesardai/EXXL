@@ -97,6 +97,56 @@ app.get('/deleteUser', async function(req, res)  {
 	res.redirect('/users');
 })
 
+// events endpoint
+app.get('/events', async(req, res) => {
+	var eventHTML = fs.readFileSync(path.join(__dirname, '/events.html'));
+	var documentUser = new jsdom.JSDOM(eventHTML).window.document;
+
+	// wait for querying event data to complete
+	var events = await Event.find({});
+
+	// is there is no event data in the data base when return 200 status and end
+	if (events.length == 0) {
+		res.type('html').status(200);
+		res.write('<b>There are currently no active events');
+		res.end();
+		return;
+	} else {
+		res.type('html').status(200);
+		res.write('<b>Active Events</b><br><br>');
+		
+		events.forEach((event) => {
+			res.write(event.name + 
+				"; " + event.date + 
+				"; " + event.location + 
+				"; Host: " + event.host + "; "
+				/* " Guests: " + event.interestedUsers*/);
+			if (event.certification) {
+				res.write(" √");
+			} else { res.write(" X");}
+			res.write("<br>Event description: " + event.description);
+			res.write("<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>");
+		}); 
+	}
+});
+
+// delete event endpoint
+app.get('/deleteEvent', async function(req, res) {
+	var event = req.query.name;
+	if (!event) {
+		console.log("The event you picked does not exist");
+	} else {
+		// console.log('req.get("name"):' + req.get("name"));
+		var deleted = await Event.findOneAndRemove({"name" : event});
+		if (!deleted) {
+			console.log("Unable to delete event: " + event.name);
+		} else { 
+			console.log("Event deletion was successful"); 
+		}
+	}
+	res.redirect('/events');
+});
+
 // Groups endpoint
 app.get('/groups', async function(req, res) {
 	res.sendFile(path.join(__dirname + '/groups.html'));
@@ -112,10 +162,6 @@ app.get('/findGroups', async function(req, res) {
 	}
 })
 
-// events endpoint
-app.get('/events', function(req, res)  {
-	res.sendFile(path.join(__dirname + '/events.html'));
-})
 
 // hotspots page endpoint
 app.get('/hotspots', function(req, res)  {
