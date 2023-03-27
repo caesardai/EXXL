@@ -40,6 +40,7 @@ async function main() {
 // nuke database
 async function clearDatabase() {
     await User.deleteMany({});
+    await Group.deleteMany({});
 
 }
 
@@ -105,9 +106,46 @@ async function populateHotspotDatabase() {
     var newGroup1 = new Group({
         groupName: "CSBuddies",
         assocActivit: "Programming",
-        chat: ,
-        users: 
+        users: [
+            new User({
+                firstName: "Ed",
+                lastName: "Shin",
+                username: "eds", 
+                pronouns: "He/Him", 
+                // smHandle: "EdisCool",
+                eventPostPermissions: true,
+                eventRegisterPermissions: true,
+                // list of users this user has interacted with
+                interactedUsers: [],
+                // list of event data for this user
+                userEvents: []
+            }),
+            new User({
+                firstName: "Xufeng",
+                lastName: "Dai",
+                username: "xufengd", 
+            })
+        ]
     })
+    await newGroup1.save();
+
+    var newGroup2 = new Group({
+        groupName: "Ballerz",
+        assocActiit: "Basketaball",
+        users: [
+            new User({
+                firstName: "Xavier",
+                lastName: "DeVore",
+                username: "xavierd", 
+            }),
+            new User({
+                firstName: "Xufeng",
+                lastName: "Dai",
+                username: "xufengd", 
+            })
+        ]
+    })
+    await newGroup2.save();
 
 }
 
