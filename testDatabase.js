@@ -11,16 +11,21 @@ var User = require('./dataSchemas/User.js');
 var Address = require('./dataSchemas/Address.js');
 var Event = require('./dataSchemas/Event.js');
 var Group = require('./dataSchemas/Group');
+var Hotspot = require('./dataSchemas/Hotspot.js');
 
 main();
 
 async function main() {
     await clearDatabase();
     await populateDatabase();
+    await populateHotspotDatabase()
 
     // print users currently in database
     var users = await User.find({});
     console.log(users);
+
+    var hotspots = await Hotspot.find({});
+    console.log(hotspots);
 
     // update ed
     const doc = await User.findOne({username: 'eds'});
@@ -76,6 +81,25 @@ async function populateDatabase() {
         username: "xufengd", 
     });
     await newUser4.save()
+    
+
+}
+
+/**
+ * function to populate the hotspot database
+ */
+async function populateHotspotDatabase() {
+    var newHotspot1 = new Hotspot({
+        longitude: "-75.285462",
+        latitude: "40.0068"
+    })
+    await newHotspot1.save();
+
+    var newHotspot2 = new Hotspot({
+        longitude: "-75.1720",
+        latitude: "39.9012"
+    })
+    await newHotspot2.save();
 
     // GROUPS
     var newGroup1 = new Group({

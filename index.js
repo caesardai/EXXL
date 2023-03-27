@@ -16,14 +16,20 @@ app.use(express.static(__dirname, options))
 // connecting to mongo database
 var mongoose = require('mongoose');
 mongoose.connect(`mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
+
+// import the User data schema
 var User = require('./dataSchemas/User.js');
+
+// import the Event data schema
+var Event = require('./dataSchemas/Event.js');
+
+// import the Hotspot data schema
+var Hotspot = require('./dataSchemas/Hotspot.js');
 
 // using jsdom to get HTML information from index.html
 var html = fs.readFileSync(path.join(__dirname, '/index.html'))
 var document = new jsdom.JSDOM(html).window.document;
 
-// import the Event class from Person.js
-var Event = require('./dataSchemas/Event.js');
 
 /**
  * function that sets the background color of body of index.html to a random color
@@ -100,20 +106,36 @@ app.get('/events', function(req, res)  {
 	res.sendFile(path.join(__dirname + '/events.html'));
 })
 
-// hotspots endpoint
+// hotspots page endpoint
 app.get('/hotspots', function(req, res)  {
 	res.sendFile(path.join(__dirname + '/hotspots.html'));
 })
 
+// find hotspots endpoint
+app.get('/findHotspots', async(req, res) => {
+	var hotspots = await Hotspot.find({});
+	if (hotspots.length === 0) {
+		res.send([]);
+	}
+	else {
+		res.send(hotspots);
+	}
+})
 
 // login endpoint
 app.use('/login', async(req, res) => {
 	var users = await User.find({});
-	var returnArray = [];
-	users.forEach(element => {
-		returnArray.push(element.username);
-	});
-	res.send(returnArray);
+	if (users.length === 0) {
+		res.send([]);
+	}
+	else {
+		var returnArray = [];
+		users.forEach(element => {
+			returnArray.push(element.username);
+		});
+		res.send(returnArray);
+	}
+
 });
 
 app.listen(port, () => {
