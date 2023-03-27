@@ -26,6 +26,8 @@ var Event = require('./dataSchemas/Event.js');
 // import the Hotspot data schema
 var Hotspot = require('./dataSchemas/Hotspot.js');
 
+var Group = require('./dataSchemas/Group.js');
+
 // using jsdom to get HTML information from index.html
 var html = fs.readFileSync(path.join(__dirname, '/index.html'))
 var document = new jsdom.JSDOM(html).window.document;
@@ -96,9 +98,18 @@ app.get('/deleteUser', async function(req, res)  {
 })
 
 // Groups endpoint
-app.get('/groups', function(req, res) {
+app.get('/groups', async function(req, res) {
 	res.sendFile(path.join(__dirname + '/groups.html'));
+})
 
+app.get('/findGroups', async function(req, res) {
+	var groups = await Group.find({});
+	if (groups.length === 0) {
+		res.send([]);
+	}
+	else {
+		res.send(groups);
+	}
 })
 
 // events endpoint

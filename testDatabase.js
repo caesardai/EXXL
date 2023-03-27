@@ -105,7 +105,7 @@ async function populateHotspotDatabase() {
     // GROUPS
     var newGroup1 = new Group({
         groupName: "CSBuddies",
-        assocActivit: "Programming",
+        assocActivity: "Programming",
         users: [
             new User({
                 firstName: "Ed",
@@ -131,7 +131,7 @@ async function populateHotspotDatabase() {
 
     var newGroup2 = new Group({
         groupName: "Ballerz",
-        assocActiit: "Basketaball",
+        assocActivity: "Basketaball",
         users: [
             new User({
                 firstName: "Xavier",
