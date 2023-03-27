@@ -17,8 +17,9 @@ main();
 
 async function main() {
     await clearDatabase();
-    await populateDatabase();
-    await populateHotspotDatabase()
+    // await populateUserDatabase();
+    await populateEventDatabase();
+    // await populateHotspotDatabase()
 
     // print users currently in database
     var users = await User.find({});
@@ -41,12 +42,12 @@ async function main() {
 async function clearDatabase() {
     await User.deleteMany({});
     await Group.deleteMany({});
+    await Hotspot.deleteMany({});
     await Event.deleteMany({});
-
 
 }
 
-async function populateDatabase() {
+async function populateUserDatabase() {
 
     // USERS
     var newUser1 = new User({
@@ -86,6 +87,44 @@ async function populateDatabase() {
     await newUser4.save()
     
 
+}
+
+async function populateEventDatabase() {
+    var newEvent1 = new Event({
+        name: "Plenary", 
+        date: "Jan 1st, 2001",
+        location: "Haverford College",
+        host: "Wendy Raymond",
+        certification: true,
+        description: " ",
+        // interestedUsers: ["Alice", "Bob", "Cathy"],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent1.save();
+
+    var newEvent2 = new Event({
+        name: "Bryn Mawr Plenary", 
+        date: "Feb 2nd, 2002",
+        location: "Bryn Mawr College",
+        host: "Kimberly Cassidy",
+        certification: true,
+        description: " "
+        // interestedUsers: ["Alice", "Bob", "Cathy"]
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent2.save();
+
+    var newEvent3 = new Event({
+        name: "No Plenary",
+        date: "March 3rd, 2003",
+        location: "Swarthmore College",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent3.save();
 }
 
 /**
@@ -148,42 +187,6 @@ async function populateHotspotDatabase() {
         ]
     })
     await newGroup2.save();
-
-    var newEvent1 = new Event({
-        name: "Plenary", 
-        date: "Jan 1st, 2001",
-        location: "Haverford College",
-        host: "Wendy Raymond",
-        certification: true,
-        description: " ",
-        // interestedUsers: ["Alice", "Bob", "Cathy"],
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent1.save();
-
-    var newEvent2 = new Event({
-        name: "Bryn Mawr Plenary", 
-        date: "Feb 2nd, 2002",
-        location: "Bryn Mawr College",
-        host: "Kimberly Cassidy",
-        certification: true,
-        description: " "
-        // interestedUsers: ["Alice", "Bob", "Cathy"]
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent2.save();
-
-    var newEvent3 = new Event({
-        name: "No Plenary",
-        date: "March 3rd, 2003",
-        location: "Swarthmore College",
-        host: "Valerie Smith",
-        certification: false,
-        description: " ",
-        // interestedUsers: [],
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent3.save();
 }
 
 
