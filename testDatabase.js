@@ -19,7 +19,8 @@ async function main() {
     await clearDatabase();
     await populateUserDatabase();
     await populateEventDatabase();
-    await populateHotspotDatabase()
+    await populateHotspotDatabase();
+    await populateGroupDatabase();
 
     // print users currently in database
     var users = await User.find({});
@@ -142,51 +143,53 @@ async function populateHotspotDatabase() {
         latitude: "39.9012"
     })
     await newHotspot2.save();
+}
 
-    // GROUPS
-    var newGroup1 = new Group({
-        groupName: "CSBuddies",
-        assocActivity: "Programming",
-        users: [
-            new User({
-                firstName: "Ed",
-                lastName: "Shin",
-                username: "eds", 
-                pronouns: "He/Him", 
-                // smHandle: "EdisCool",
-                eventPostPermissions: true,
-                eventRegisterPermissions: true,
-                // list of users this user has interacted with
-                interactedUsers: [],
-                // list of event data for this user
-                userEvents: []
-            }),
-            new User({
-                firstName: "Xufeng",
-                lastName: "Dai",
-                username: "xufengd", 
-            })
-        ]
-    })
-    await newGroup1.save();
-
-    var newGroup2 = new Group({
-        groupName: "Ballerz",
-        assocActivity: "Basketaball",
-        users: [
-            new User({
-                firstName: "Xavier",
-                lastName: "DeVore",
-                username: "xavierd", 
-            }),
-            new User({
-                firstName: "Xufeng",
-                lastName: "Dai",
-                username: "xufengd", 
-            })
-        ]
-    })
-    await newGroup2.save();
+async function populateGroupDatabase(){
+        // GROUPS
+        var newGroup1 = new Group({
+            groupName: "CSBuddies",
+            assocActivity: "Programming",
+            users: [
+                new User({
+                    firstName: "Ed",
+                    lastName: "Shin",
+                    username: "eds", 
+                    pronouns: "He/Him", 
+                    // smHandle: "EdisCool",
+                    eventPostPermissions: true,
+                    eventRegisterPermissions: true,
+                    // list of users this user has interacted with
+                    interactedUsers: [],
+                    // list of event data for this user
+                    userEvents: []
+                }),
+                new User({
+                    firstName: "Xufeng",
+                    lastName: "Dai",
+                    username: "xufengd", 
+                })
+            ]
+        })
+        await newGroup1.save();
+    
+        var newGroup2 = new Group({
+            groupName: "Ballerz",
+            assocActivity: "Basketaball",
+            users: [
+                new User({
+                    firstName: "Xavier",
+                    lastName: "DeVore",
+                    username: "xavierd", 
+                }),
+                new User({
+                    firstName: "Xufeng",
+                    lastName: "Dai",
+                    username: "xufengd", 
+                })
+            ]
+        })
+        await newGroup2.save();
 }
 
 
