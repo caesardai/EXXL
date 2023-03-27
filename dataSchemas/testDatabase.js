@@ -7,11 +7,11 @@ var mongoose = require('mongoose');
 // ******* NOT SECURE. CHANGE EVENTUALLY ********
 mongoose.connect(`mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
 
-var User = require('./dataSchemas/User.js');
-var Address = require('./dataSchemas/Address.js');
-var Event = require('./dataSchemas/Event.js');
-var Group = require('./dataSchemas/Group');
-var Hotspot = require('./dataSchemas/Hotspot.js');
+var User = require('./User.js');
+var Address = require('./Address.js');
+var Event = require('./Event.js');
+var Group = require('./Group.js');
+var Hotspot = require('./Hotspot.js');
 
 main();
 

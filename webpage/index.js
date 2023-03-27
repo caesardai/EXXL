@@ -18,15 +18,15 @@ var mongoose = require('mongoose');
 mongoose.connect(`mongodb+srv://Ed:SkxYx4Owdb5ohaLJ@exxl.ml3ff7t.mongodb.net/?retryWrites=true&w=majority`);
 
 // import the User data schema
-var User = require('./dataSchemas/User.js');
+var User = require('../dataSchemas/User.js');
 
 // import the Event data schema
-var Event = require('./dataSchemas/Event.js');
+var Event = require('../dataSchemas/Event.js');
 
 // import the Hotspot data schema
-var Hotspot = require('./dataSchemas/Hotspot.js');
+var Hotspot = require('../dataSchemas/Hotspot.js');
 
-var Group = require('./dataSchemas/Group.js');
+var Group = require('../dataSchemas/Group.js');
 
 // using jsdom to get HTML information from index.html
 var html = fs.readFileSync(path.join(__dirname, '/index.html'))
@@ -48,34 +48,42 @@ app.get('/', function(req, res) {
 
 // users endpoint
 app.use('/users', async(req, res) => {
+	console.log("DELETE THIS");
 	var userHTML = fs.readFileSync(path.join(__dirname, '/users.html'));
 	var documentUser = new jsdom.JSDOM(userHTML).window.document;
 	
 	var users = await User.find({});
+	console.log("Delete this 2");
 
 	// TODO: Test case of empty database
 	if (users.length == 0) {
 		res.type('html').status(200);
 		res.write('There are no users in the database');
 		res.end();
+		console.log("delete this 3");
 		return;
 	}
 	else {
+		console.log("delete this 4");
+
 		res.type('html').status(200);
 		// console.log(documentUser.getElementById("p1").innerHTML);
 		// documentUser.getElementById("p1").textContent = "HELLO";
 		res.write('<b>Here are the users in the database:</b><br><br>');
+		console.log("delete this 5");
 		users.forEach((user) => {
 			res.write(user.firstName + " " + user.lastName +
 				" (@" + user.username + ")");
 			if (user.pronouns) {
 				res.write(" – " + user.pronouns);
 			}
+			console.log("delete this 6");
 			res.write("<br>");
 			res.write("<a href=\"/deleteUser?username=" + user.username + "\">[Delete]</a>");
 			res.write("<br><br>");
 		}); // couldn't add .sort({ 'username': 'asc' })
 	}
+	console.log("Delete this end");
 
 	// res.sendFile(path.join(__dirname, '/users.html'));
 	// console.log(users);
