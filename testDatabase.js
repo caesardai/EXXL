@@ -17,9 +17,9 @@ main();
 
 async function main() {
     await clearDatabase();
-    // await populateUserDatabase();
+    await populateUserDatabase();
     await populateEventDatabase();
-    // await populateHotspotDatabase()
+    await populateHotspotDatabase()
 
     // print users currently in database
     var users = await User.find({});
