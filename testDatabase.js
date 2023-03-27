@@ -40,6 +40,7 @@ async function clearDatabase() {
 
 async function populateDatabase() {
 
+    // USERS
     var newUser1 = new User({
         firstName: "Ed",
         lastName: "Shin",
@@ -76,7 +77,13 @@ async function populateDatabase() {
     });
     await newUser4.save()
 
-    
+    // GROUPS
+    var newGroup1 = new Group({
+        groupName: "CSBuddies",
+        assocActivit: "Programming",
+        chat: ,
+        users: 
+    })
 
 }
 

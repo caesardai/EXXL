@@ -89,6 +89,12 @@ app.get('/deleteUser', async function(req, res)  {
 	res.redirect('/users');
 })
 
+// Groups endpoint
+app.get('/groups', function(req, res) {
+	res.sendFile(path.join(__dirname + '/groups.html'));
+
+})
+
 // events endpoint
 app.get('/events', function(req, res)  {
 	res.sendFile(path.join(__dirname + '/events.html'));
