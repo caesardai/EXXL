@@ -48,40 +48,18 @@ app.get('/', function(req, res) {
 
 // users endpoint
 app.use('/users', async(req, res) => {
-	// make new "document" for future use in getElementById()
-	var userHTML = fs.readFileSync(path.join(__dirname, '/users.html'));
-	var documentUser = new jsdom.JSDOM(userHTML).window.document;
-	
-	// retrieve all users in the database
-	var users = await User.find({});
+	res.sendFile(path.join(__dirname + '/users.html'));
+});
 
-	// is there is no event data in the data base when return 200 status and end
-	if (users.length == 0) {
-		res.type('html').status(200);
-		res.write('There are no users in the database');
-		res.end();
-		return;
+app.use('/findUsers', async(req, res) => {
+	var users = await User.find({});
+	if (users.length === 0) {
+		res.send([]);
 	}
 	else {
-		res.type('html').status(200);
-		// console.log(documentUser.getElementById("p1").innerHTML);
-		// documentUser.getElementById("p1").textContent = "HELLO";
-		res.write('<b>Here are the users in the database:</b><br><br>');
-		users.forEach((user) => {
-			res.write(user.firstName + " " + user.lastName +
-				" (@" + user.username + ")");
-			if (user.pronouns) {
-				res.write(" – " + user.pronouns);
-			}
-			res.write("<br>");
-			res.write("<a href=\"/deleteUser?username=" + user.username + "\">[Delete]</a>");
-			res.write("<br><br>");
-		}); // couldn't add .sort({ 'username': 'asc' })
+		res.send(users);
 	}
-
-	// res.sendFile(path.join(__dirname, '/users.html'));
-	// console.log(users);
-});
+})
 
 app.get('/deleteUser', async function(req, res)  {
 	var user = req.query.username;

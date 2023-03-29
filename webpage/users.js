@@ -36,10 +36,14 @@ async function findUsersAndDisplay() {
 
                     // Create box with name and username
                     newListGroupHTML += '<div class="shadow-none p-3 mb-2 bg-light rounded">';
-                    newListGroupHTML += "<b>" + user.firstName + " " + user.lastName + "</b> (@" + user.username + ") ";
+                    newListGroupHTML += "<b>" + user.firstName + " " + user.lastName + "</b> (@" + user.username + ")<br>";
 
-                    // Add delete button
-                    newListGroupHTML += "<a href=\"/deleteUser?username=" + user.username + "\">[Delete]</a><br>";
+                    // Add edit button (placeholder)
+                    newListGroupHTML += '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t';
+
+                    // Add delete button (placeholder)
+                    newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href="/deleteUser?username='
+                                        + user.username + '" role="button">Delete</a>';
 
                     newListGroupHTML += "</div>";
                 });
