@@ -24,16 +24,10 @@
         <div class="w-50 p-3" style="background-color: #eee; width: 100%; margin: auto;">
             <div class="card mb-4 box-shadow" style="background-color:whitesmoke; ">
                 <h1>Admin Login</h1>
-                <form id="loginForm">
-                    <div class="input-group input-group-lg" style="padding: 20px;">
+                <form>
+                    <div class="input-group input-group-lg" style="padding: 20px;" id="usernameInputLocation">
                         <span class="input-group-text" id="basic-addon1">@</span>
                         <input type="text" class="form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1" id="usernameValue">
-                    </div>
-                    <div style="visibility: hidden;" id="userNotSubmittedText">
-                      <p class="text-center" style="color: crimson;">Please submit a username</p>
-                    </div>
-                    <div style="visibility: hidden;" id="userNotFoundText">
-                      <p class="text-center" style="color: crimson;">Username not found</p>
                     </div>
                     <div style="padding: 20px;">
                         <button type="button" class="btn btn-outline-secondary" onclick="onSubmitUsername()">Login</button>
