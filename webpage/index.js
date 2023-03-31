@@ -158,6 +158,18 @@ app.get('/findHotspots', async(req, res) => {
 	}
 })
 
+// delete hotspot endpoint 
+app.get('/deleteHotspot', async(req, res) => {
+	Hotspot.deleteOne({ _id: req.query.id }).then(function(){
+		// success
+		res.send( { "response" : "Data deleted"} ); 
+	}).catch(function(error){
+		// failure
+		res.send( { "response" : error }); 
+	});
+
+})
+
 // login endpoint
 app.use('/login', async(req, res) => {
 	var users = await User.find({});

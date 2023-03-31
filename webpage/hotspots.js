@@ -39,7 +39,7 @@ async function findHotspotsAndDisplay() {
                 var numHotspots = 0;
                 data.forEach((hotspot) => {
                     numHotspots += 1
-                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action' id='hotspot" + numHotspots + "'>Longitude: " +
+                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action' id='" + hotspot._id + "'>Longitude: " +
                     hotspot.longitude + ", Latitude: " + hotspot.latitude + "</button>" + 
                     "<a class='btn btn-outline-danger btn-sm' onclick='onDeleteClick(this.id)' id='delete" + numHotspots + "'>Delete</a>";
                 });
@@ -54,14 +54,44 @@ async function findHotspotsAndDisplay() {
     });
 }
 
-
+/**
+ * function to delete a hotspot from the hotspots page and database
+ * @param {string} idClicked id of the remove button that was clicked
+ */
 async function onDeleteClick(idClicked) {
     
+    // get information of the delete button that was clicked
     var deleteClicked = document.getElementById(idClicked);
-    var hotspotRemoved = deleteClicked.previousSibling;
-    console.log(hotspotRemoved);
 
-    deleteClicked.remove();
-    hotspotRemoved.remove();
+    // get the hotspot that the clicked delete button is associated with 
+    var hotspotRemoved = deleteClicked.previousSibling;
+
+    // create url to make api call
+    var url = 'http://localhost:3000/deleteHotspot?id=' + hotspotRemoved.id;
+
+    // deleting hotspot from database
+    await fetch(url).then((response) => {
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        else {
+            response.json().then((data) => {
+
+                // check if hotspot was deleted
+                if (data["response"] === "Data deleted"){
+
+                    // if so, remove html elements (hotspot and associated button)
+                    deleteClicked.remove();
+                    hotspotRemoved.remove();
+                }
+                else {
+                    throw new Error(data["response"]);
+                }
+            })
+        }
+    });
+
+
 
 }
