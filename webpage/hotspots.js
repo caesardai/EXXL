@@ -34,11 +34,14 @@ async function findHotspotsAndDisplay() {
             var newListGroupHTML = 
             "<div class='list-group'>";
 
-            // adding hotspot items to newListGroupHTML 
+            // adding hotspot items and remove button to newListGroupHTML 
             response.json().then((data) => {
+                var numHotspots = 0;
                 data.forEach((hotspot) => {
-                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action'>Longitude: " +
-                    hotspot.longitude + ", Latitude: " + hotspot.latitude + "</button>";
+                    numHotspots += 1
+                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action' id='hotspot" + numHotspots + "'>Longitude: " +
+                    hotspot.longitude + ", Latitude: " + hotspot.latitude + "</button>" + 
+                    "<a class='btn btn-outline-danger btn-sm' onclick='onDeleteClick(this.id)' id='delete" + numHotspots + "'>Delete</a>";
                 });
                 newListGroupHTML += "</div>";
 
@@ -49,4 +52,16 @@ async function findHotspotsAndDisplay() {
             });
         }
     });
+}
+
+
+async function onDeleteClick(idClicked) {
+    
+    var deleteClicked = document.getElementById(idClicked);
+    var hotspotRemoved = deleteClicked.previousSibling;
+    console.log(hotspotRemoved);
+
+    deleteClicked.remove();
+    hotspotRemoved.remove();
+
 }
