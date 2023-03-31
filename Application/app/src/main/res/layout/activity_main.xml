@@ -15,4 +15,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/home_button_1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#A4ABA4"
+        android:text="BUTTON1"
+        android:layout_margin="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/home_button_2"
+        />
+
+    <Button
+        android:id="@+id/home_button_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#A4ABA4"
+        android:text="BUTTON2"
+        android:layout_margin="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
