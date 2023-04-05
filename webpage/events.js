@@ -45,7 +45,7 @@ async function findEventsAndDisplay() {
                     else
                         newListGroupHTML += " ✕";
 
-                    newListGroupHTML += "<br>Event description: " + event.description + "<br>";
+                    newListGroupHTML += "<br>Event description: " + ev.description + "<br>";
                     // newListGroupHTML += "<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>";
 
                     // Add edit button (placeholder)
