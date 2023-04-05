@@ -17,7 +17,7 @@ var document = new jsdom.JSDOM(html).window.document;
 async function findUsersAndDisplay() {
 
     // get HTML content of the card to put user list 
-    var groupListCard = document.getElementById("usersCard");
+    var userListCard = document.getElementById("usersCard");
 
     // get list of users from database
     await fetch('http://localhost:3000/findUsers').then(async (response) => {
@@ -41,7 +41,7 @@ async function findUsersAndDisplay() {
                     // Add edit button (placeholder)
                     newListGroupHTML += '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t';
 
-                    // Add delete button (placeholder)
+                    // Add delete button
                     newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href="/deleteUser?username='
                                         + user.username + '" role="button">Delete</a>';
 
@@ -55,7 +55,7 @@ async function findUsersAndDisplay() {
             // adding HTML we've made here to hotspots.html
             var newElement = document.createElement("div");
             newElement.innerHTML = newListGroupHTML;
-            groupListCard.appendChild(newElement);  
+            userListCard.appendChild(newElement);  
         }
     });
 }

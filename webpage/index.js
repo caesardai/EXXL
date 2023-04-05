@@ -77,37 +77,48 @@ app.get('/deleteUser', async function(req, res)  {
 })
 
 // events endpoint
-app.get('/events', async(req, res) => {
-	var eventHTML = fs.readFileSync(path.join(__dirname, '/events.html'));
-	var documentUser = new jsdom.JSDOM(eventHTML).window.document;
-
-	// wait for querying event data to complete
-	var events = await Event.find({});
-
-	// is there is no event data in the data base when return 200 status and end
-	if (events.length == 0) {
-		res.type('html').status(200);
-		res.write('<b>There are currently no active events');
-		res.end();
-		return;
-	} else {
-		res.type('html').status(200);
-		res.write('<b>Active Events</b><br><br>');
-		
-		events.forEach((event) => {
-			res.write(event.name + 
-				"; " + event.date + 
-				"; " + event.location + 
-				"; Host: " + event.host + "; "
-				/* " Guests: " + event.interestedUsers*/);
-			if (event.certification) {
-				res.write(" √");
-			} else { res.write(" X");}
-			res.write("<br>Event description: " + event.description);
-			res.write("<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>");
-		}); 
-	}
+app.use('/events', async(req, res) => {
+	res.sendFile(path.join(__dirname + '/events.html'));
 });
+
+// app.get('/events', async(req, res) => {
+// 	// wait for querying event data to complete
+// 	var events = await Event.find({});
+
+// 	// is there is no event data in the data base when return 200 status and end
+// 	if (events.length == 0) {
+// 		res.type('html').status(200);
+// 		res.write('<b>There are currently no active events');
+// 		res.end();
+// 		return;
+// 	} else {
+// 		res.type('html').status(200);
+// 		res.write('<b>Active Events</b><br><br>');
+		
+// 		events.forEach((event) => {
+// 			res.write(event.name + 
+// 				"; " + event.date + 
+// 				"; " + event.location + 
+// 				"; Host: " + event.host + "; "
+// 				/* " Guests: " + event.interestedUsers*/);
+// 			if (event.certification) {
+// 				res.write(" √");
+// 			} else { res.write(" X");}
+// 			res.write("<br>Event description: " + event.description);
+// 			res.write("<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>");
+// 		}); 
+// 	}
+// });
+
+app.use('/findEvents', async(req, res) => {
+	var events = await Event.find({});
+	if (events.length === 0) {
+		res.send([]);
+	}
+	else {
+		res.send(events);
+	}
+})
 
 // delete event endpoint
 app.get('/deleteEvent', async function(req, res) {
