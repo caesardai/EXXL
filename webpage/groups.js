@@ -29,7 +29,7 @@ async function findGroupsAndDisplay() {
         }
         else {
             // creating HTML to contain hotspot items
-            var newListGroupHTML = "<div class='list-group'>";
+            var newListGroupHTML = "<div class = 'list-group'>";
             var empty = true;
 
             // adding hotspot items to newListGroupHTML 
@@ -55,15 +55,14 @@ async function findGroupsAndDisplay() {
                     newListGroupHTML += '</div>';
 
                 });
-
-                var newElement = document.createElement("div");
-                newElement.innerHTML = newListGroupHTML;
-                groupListCard.appendChild(newElement);  
             });
 
             if (empty){
                 newListGroupHTML += "No groups in database.";
             }
+            var newElement = document.createElement("div");
+            newElement.innerHTML = newListGroupHTML;
+            groupListCard.appendChild(newElement);  
         }
     });
 }
