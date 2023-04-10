@@ -46,6 +46,11 @@ app.get('/', function(req, res) {
   	res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+app.get('/test', function(req, res) {
+	console.log('testing')
+	res.json({'message' : 'made it here'})
+})
+
 // users endpoint
 app.use('/users', async(req, res) => {
 	res.sendFile(path.join(__dirname + '/users.html'));
@@ -81,12 +86,15 @@ app.use('/events', async(req, res) => {
 	res.sendFile(path.join(__dirname + '/events.html'));
 });
 
+// find events endpoint
 app.use('/findEvents', async(req, res) => {
 	var events = await Event.find({});
 	if (events.length === 0) {
+		console.log([])
 		res.send([]);
 	}
 	else {
+		console.log(events)
 		res.send(events);
 	}
 })
