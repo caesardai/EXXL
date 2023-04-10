@@ -3,6 +3,8 @@ var path = require('path');
 var fs = require('fs');
 var jsdom = require('jsdom');
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended : true}));
 const port = 3000;
 
 // setting opening window to index page
@@ -114,6 +116,26 @@ app.get('/deleteEvent', async function(req, res) {
 		}
 	}
 	res.redirect('/events');
+});
+
+// edit event endpoint
+app.get('/editEvent', async function(req, res) {
+	res.sendFile(path.join(__dirname + '/editEvents.html'));
+});
+
+app.use('/updateEvent', async function(req, res) {
+	var filter = req.body.name;
+	var action = {'$set' : {'name' : req.body.name, 'date' :  req.body.date, 'loaction' : req.body.location, 'host' : req.body.location, 'certification' : req.body.certification} }
+	
+	await Event.findOneAndUpdate(filter, action, async function(err, orig) {
+		if (err) {
+			console.log("Error in updating");
+		} else if (!orig) {
+			console.log("Event not found");
+		} else {
+			console.log("Update success!");
+		}
+ 	});
 });
 
 // Groups endpoint

@@ -23,19 +23,19 @@ async function main() {
     await populateGroupDatabase();
 
     // print users currently in database
-    var users = await User.find({});
+    var users = await Event.find({});
     console.log(users);
 
-    var hotspots = await Hotspot.find({});
-    console.log(hotspots);
+    // var hotspots = await Hotspot.find({});
+    // console.log(hotspots);
 
-    // update ed
-    const doc = await User.findOne({username: 'eds'});
-    const update = {smHandle: 'edis2coolforthis'};
-    await doc.updateOne(update);
+    // // update ed
+    // const doc = await User.findOne({username: 'eds'});
+    // const update = {smHandle: 'edis2coolforthis'};
+    // await doc.updateOne(update);
 
-    const updatedDoc = await User.findOne({username: 'eds'});
-    console.log(updatedDoc);
+    // const updatedDoc = await User.findOne({username: 'eds'});
+    // console.log(updatedDoc);
 ;
 }
 

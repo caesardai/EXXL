@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+        h1 {
+          text-align: center;
+          padding-top: 30px;
+          padding-bottom: 30px;
+        }
+        h2 {
+          text-align: center;
+          padding-top: 10px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EXXL Administrative Single Page Web Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    </head>
+    <body id="body" style="font-family: 'Poppins', sans-serif;" onload="changeBackgroundColor()">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#" onClick="window.location.reload();">Homepage <span class="sr-only"></span></a>
+            <a class="nav-item nav-link" href="#" onclick="window.location.href='/users';">User Data</a>
+            <a class="nav-item nav-link" href="#" onclick="window.location.href='/events';">Event Data</a>
+            <a class="nav-item nav-link" href="#" onclick="window.location.href='/groups';">Group Data</a>
+            <a class="nav-item nav-link" href="#" onclick="window.location.href='/hotspots';">Hotspot Data</a>
+        </div>
+        </div>
+    </nav>
+  
+<form action="/updateEvent" method="post">
+Name: <input name="name">
+<p>
+Date: <input name="date">
+<p>
+location: <input name="location">
+<p>
+host: <input name="host">
+<p>
+certification: <input name="certification">
+<p>
+<input type="submit" value="Submit form!">
+
+</form>
+<script type="text/javascript" src="./events.js"></script>
+
+</html>
