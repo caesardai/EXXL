@@ -166,9 +166,8 @@
             app:itemTextColor="#FFFFFF"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/bottom_navigation_menu">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

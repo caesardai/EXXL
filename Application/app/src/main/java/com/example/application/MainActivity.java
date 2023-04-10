@@ -3,6 +3,7 @@ package com.example.application;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +33,9 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
 
+    private static final int ACTIVITY_ID = 1;
     protected String message;
+    protected boolean loggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +162,12 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                 return true;
 
             case R.id.bottom_nav_4:
+                // go to account page
+                if (!loggedIn) {
+                    Intent in = new Intent(this, AccountPageNoLogin.class);
+                    in.putExtra("Message", "random message; hello");
+                    startActivityForResult(in, ACTIVITY_ID);
+                }
                 return true;
         }
         return false;

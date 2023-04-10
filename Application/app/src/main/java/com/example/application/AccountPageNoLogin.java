@@ -1,2 +1,4 @@
-package com.example.application;public class AccountPageNoLogin {
+package com.example.application;
+
+public class AccountPageNoLogin {
 }
