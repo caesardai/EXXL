@@ -4,38 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#BEC5EA"
+    tools:context=".AccountPageNoLogin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="207dp"
+        android:gravity="center"
+        android:text="Log In"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/newAccountButton"
+        app:layout_constraintEnd_toEndOf="@+id/newAccountButton"
+        app:layout_constraintStart_toStartOf="@+id/newAccountButton"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onLoginButtonClick"/>
+
+    <Button
+        android:id="@+id/newAccountButton"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="416dp"
+        android:gravity="center"
+        android:text="Create New Account"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/home_button_1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="0dp"
-        android:layout_marginBottom="148dp"
-        android:background="#A4ABA4"
-        android:text="BUTTON1"
-        app:layout_constraintBottom_toTopOf="@+id/home_button_2"
-        tools:layout_editor_absoluteX="-16dp" />
-
-    <Button
-        android:id="@+id/home_button_2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#A4ABA4"
-        android:text="BUTTON2"
-        android:layout_margin="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        android:onClick="onNewAccountButtonClick"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
