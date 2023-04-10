@@ -1,7 +1,9 @@
 package com.example.application;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,7 +27,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationBarView;
+
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
 
     protected String message;
 
@@ -137,4 +141,26 @@ public class MainActivity extends AppCompatActivity {
         }
         return jsonArray;
     }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.bottom_nav_1:
+                // go to other screen
+                return true;
+
+            case R.id.bottom_nav_2:
+                return true;
+
+            case R.id.bottom_nav_3:
+                return true;
+
+            case R.id.bottom_nav_4:
+                return true;
+        }
+        return false;
+    }
+
 }
