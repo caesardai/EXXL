@@ -45,11 +45,13 @@ async function findEventsAndDisplay() {
                     else
                         newListGroupHTML += " ✕";
 
-                    newListGroupHTML += "<br>Event description: " + ev.description + "<br>";
+                    newListGroupHTML += "<br>Event description: " + event.description + "<br>";
                     // newListGroupHTML += "<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>";
 
                     // Add edit button (placeholder)
-                    newListGroupHTML += '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t';
+                    newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href=\"/editEvent?name='
+                    + event.name + '" role="button">Edit</a>';
+                    // '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t'
 
                     // Add delete button (placeholder)
                     newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href=\"/deleteEvent?name='
