@@ -22,36 +22,73 @@ async function findGroupsAndDisplay() {
     var groupListCard = document.getElementById("groupListCard");
 
     // getting hotspots from database
-    await fetch('http://localhost:3000/findGroups').then((response) => {
+    await fetch('http://localhost:3000/findGroups').then(async (response) => {
         if (!response.ok) {
             const message = `Error: ${response.status}`;
             throw new Error(message);
         }
         else {
             // creating HTML to contain hotspot items
-            var newListGroupHTML = 
-            "<div class='list-group'>";
+            var newListGroupHTML = "<div class='list-group'>";
+            var empty = true;
 
             // adding hotspot items to newListGroupHTML 
-            response.json().then((data) => {
+            await response.json().then((data) => {
                 data.forEach((group) => {
+                    empty = false;
+
+                    // Display group information
+                    newListGroupHTML += '<div class="shadow-none p-3 mb-2 bg-light rounded">';
+                    newListGroupHTML += "<b>" + group.groupName + "</b> <br>";
+                    newListGroupHTML += "Activity: " + group.assocActivity + "<br>";
                     usersObj = group.users;
                     usersArr = new Array();
                     usersObj.forEach((user) => {
                         usersArr.push(" " + user.username); 
                     })
+                    newListGroupHTML += "Users: " + usersArr + "<br>";
 
-                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action'>Group name: " +
-                    group.groupName + ", Associated Activity: " + group.assocActivity + 
-                    ", Users:" + usersArr + "</button>";
+                    // Delete Button
+                    newListGroupHTML += '<input type="button" class="btn btn-outline-danger btn-sm" value=Delete onclick="deleteGroup(' + "'" + group._id + "'" + ')">'
+                    newListGroupHTML += '<script type="text/javascript" src="./index.js"></script>'
+                    
+                    newListGroupHTML += '</div>';
+
                 });
-                newListGroupHTML += "</div>";
 
-                // adding HTML we've made here to hotspots.html
                 var newElement = document.createElement("div");
                 newElement.innerHTML = newListGroupHTML;
                 groupListCard.appendChild(newElement);  
             });
+
+            if (empty){
+                newListGroupHTML += "No groups in database.";
+            }
         }
     });
 }
+
+async function deleteGroup(groupid){
+    var url = 'http://localhost:3000/deleteGroup?id=' + groupid;
+
+    await fetch(url).then((response) => {
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        else {
+            response.json().then((data) => {
+
+                // check if hotspot was deleted
+                if (data["response"] === "Data deleted"){
+
+                    window.location.reload();
+                }
+                else {
+                    throw new Error(data["response"]);
+                }
+            })
+        }
+    });
+}
+

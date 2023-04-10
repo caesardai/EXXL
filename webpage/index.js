@@ -123,6 +123,18 @@ app.get('/findGroups', async function(req, res) {
 	}
 })
 
+app.get('/deleteGroup', async(req, res) => {
+
+	await Group.deleteOne({ _id: req.query.id}).then(function(){
+		// success
+		res.send( { "response" : "Data deleted"} ); 
+	}).catch(function(error){
+		// failure
+		res.send( { "response" : error }); 
+	});
+
+})
+
 
 // hotspots page endpoint
 app.get('/hotspots', function(req, res)  {
