@@ -7,7 +7,8 @@
     android:layout_gravity="bottom|end"
     android:background="@color/md_theme_dark_onPrimary"
     android:orientation="vertical"
-    app:layout_anchorGravity="bottom">
+    app:layout_anchorGravity="bottom"
+    tools:context=".CreateAccount">
 
     <TextView
         android:id="@+id/title"
@@ -126,7 +127,7 @@
         android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/et_repassword"
+        android:id="@+id/repassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -150,6 +151,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
         android:text="Create Account"
+        android:onClick="onCreateButtonClick"
         android:textColor="@android:color/white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
