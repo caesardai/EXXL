@@ -23,5 +23,7 @@
         <activity android:name=".AccountPageNoLogin" />
         <activity android:name=".CreateAccount" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
