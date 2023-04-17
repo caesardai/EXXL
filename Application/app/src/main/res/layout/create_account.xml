@@ -30,7 +30,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/login_outline"
-        android:hint="First Name: "
+        android:hint="First Name"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:paddingStart="45dp"
@@ -46,7 +46,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/login_outline"
-        android:hint="Last Name: "
+        android:hint="Last Name"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:paddingStart="45dp"
@@ -71,7 +71,7 @@
             android:layout_marginTop="15dip"
             android:layout_marginBottom="15dp"
             android:paddingStart="30dp"
-            android:text="Pronouns: "
+            android:text="Pronouns"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:textSize="15sp" />
@@ -103,7 +103,7 @@
         android:background="@drawable/login_outline"
         android:drawableLeft="@drawable/person"
         android:drawablePadding="7sp"
-        android:hint="Username: "
+        android:hint="Username"
         android:padding="15dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -119,7 +119,7 @@
         android:background="@drawable/login_outline"
         android:drawableLeft="@drawable/security"
         android:drawablePadding="7sp"
-        android:hint="Password: "
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="15dp"
         android:textColor="#FFFFFF"
@@ -133,7 +133,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/login_outline"
-        android:hint="Re-type Password: "
+        android:hint="Re-type Password"
         android:inputType="textPassword"
         android:padding="15dp"
         android:paddingStart="45dp"
@@ -151,25 +151,25 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
         android:text="Create Account"
-        android:onClick="onCreateButtonClick"
+        android:onClick="onCreateAccountButtonClick"
         android:textColor="@android:color/white" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="0dp"
-            app:itemBackground="@color/md_theme_dark_secondaryContainer"
-            app:itemIconTint="@color/md_theme_dark_inverseSurface"
-            app:itemTextColor="#FFFFFF"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_navigation_menu" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--            android:id="@+id/bottom_navigation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingBottom="0dp"-->
+<!--            app:itemBackground="@color/md_theme_dark_secondaryContainer"-->
+<!--            app:itemIconTint="@color/md_theme_dark_inverseSurface"-->
+<!--            app:itemTextColor="#FFFFFF"-->
+<!--            app:labelVisibilityMode="labeled"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:menu="@menu/bottom_navigation_menu" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </LinearLayout>
