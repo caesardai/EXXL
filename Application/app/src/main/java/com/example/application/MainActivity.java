@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
         System.out.println("Hi");
         // set up nav bar
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
+        Intent nav_account = new Intent(this, AccountPageNoLogin.class);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -66,11 +67,10 @@ public class MainActivity extends AppCompatActivity{
 
                     case R.id.bottom_nav_4:
                         // go to account page
-//                        if (!loggedIn) {
-//                            Intent in = new Intent(this, AccountPageNoLogin.class);
-//                            in.putExtra("Message", "random message; hello");
-//                            startActivityForResult(in, ACTIVITY_ID);
-//                        }
+                        if (!loggedIn) {
+                            nav_account.putExtra("Message", "random message; hello");
+                            startActivityForResult(nav_account, ACTIVITY_ID);
+                        }
                         return true;
                 }
                 return false;
