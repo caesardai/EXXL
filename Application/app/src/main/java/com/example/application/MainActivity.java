@@ -29,9 +29,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity{
 
     private static final int ACTIVITY_ID = 1;
     protected String message;
@@ -44,6 +45,38 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         // load events from database
         loadEvents();
+
+        System.out.println("Hi");
+        // set up nav bar
+        NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
+        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.bottom_nav_1:
+                        // go to other screen
+                        System.out.println("hello!");
+                        return true;
+
+                    case R.id.bottom_nav_2:
+                        return true;
+
+                    case R.id.bottom_nav_3:
+                        return true;
+
+                    case R.id.bottom_nav_4:
+                        // go to account page
+//                        if (!loggedIn) {
+//                            Intent in = new Intent(this, AccountPageNoLogin.class);
+//                            in.putExtra("Message", "random message; hello");
+//                            startActivityForResult(in, ACTIVITY_ID);
+//                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+
     }
 
 
@@ -144,33 +177,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             e.printStackTrace();
         }
         return jsonArray;
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.bottom_nav_1:
-                // go to other screen
-                return true;
-
-            case R.id.bottom_nav_2:
-                return true;
-
-            case R.id.bottom_nav_3:
-                return true;
-
-            case R.id.bottom_nav_4:
-                // go to account page
-                if (!loggedIn) {
-                    Intent in = new Intent(this, AccountPageNoLogin.class);
-                    in.putExtra("Message", "random message; hello");
-                    startActivityForResult(in, ACTIVITY_ID);
-                }
-                return true;
-        }
-        return false;
     }
 
 }
