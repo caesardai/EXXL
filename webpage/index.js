@@ -68,6 +68,59 @@ app.use('/findUsers', async(req, res) => {
 	}
 })
 
+app.use('/checkForUsername', async(req, res) => {
+	var username = req.query.username;
+	if (!username) {
+		console.log("Username not specified");
+	}
+	else {
+		var user = await User.findOne({ username: username }).exec();
+		console.log(username);
+		if (user) {
+			res.send("true");
+		}
+		else {
+			res.send("false");
+		}
+	}
+})
+
+app.use('/addUser', async(req, res) => {
+	var firstName = req.query.firstName;
+	var lastName = req.query.lastName;
+	var username = req.query.username;
+
+	var newUser = new User({
+		firstName: firstName,
+		lastName: lastName,
+		username: username, 
+	});
+
+	if (!username || !firstName || !lastName) {
+		console.log("Username not specified");
+		res.send("false");
+	}
+	else {
+		// await newUser.validate(function (err) {
+		// 	if (err) res.send("false");
+		// 	else { // validation passed
+		// 		newUser.save();
+		// 		res.send("true"); 
+		// 	}
+		// });
+
+		let error;
+		try {
+			await newUser.save();
+			console.log("true");
+			res.send("true");
+		} catch (err) {
+			console.log("error");
+			res.send("false");
+		}		
+	}
+})
+
 app.get('/deleteUser', async function(req, res)  {
 	var user = req.query.username;
 	if (!user) {
