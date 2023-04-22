@@ -8,12 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,14 +19,11 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity{
@@ -92,14 +86,14 @@ public class MainActivity extends AppCompatActivity{
         ListView listView = (ListView) findViewById(R.id.event_list);
 
         // new ArrayList to store events and map to the ListView
-        ArrayList<Event> arrayList = new ArrayList<Event>();
+        ArrayList<EventObject> arrayList = new ArrayList<EventObject>();
 
         try {
 
             // add each event to arrayList
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject currObject = (JSONObject) jsonArray.get(i);
-                Event currEvent = new Event(currObject);
+                EventObject currEvent = new EventObject(currObject);
                 arrayList.add(currEvent);
             }
         }
@@ -109,7 +103,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
         // map arrayList (storing events) to the ListView
-        ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(this,
+        ArrayAdapter<EventObject> adapter = new ArrayAdapter<EventObject>(this,
                 android.R.layout.simple_selectable_list_item, arrayList);
         listView.setAdapter(adapter);
 

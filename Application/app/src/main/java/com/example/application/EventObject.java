@@ -8,11 +8,11 @@ import org.json.JSONObject;
  * Made a new class because ListView shows user text from the toString of an object
  * This gives us control over what is shown to the users in the ListView
  */
-public class Event {
+public class EventObject {
 
     JSONObject jsonObject;
 
-    public Event(JSONObject inputJsonObject){
+    public EventObject(JSONObject inputJsonObject){
         jsonObject = inputJsonObject;
     }
 
