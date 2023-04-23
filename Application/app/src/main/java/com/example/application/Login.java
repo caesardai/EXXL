@@ -42,8 +42,15 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "Username not in system.\nTry again or create an account.", Toast.LENGTH_LONG).show();
             return;
         } else {
-            Toast.makeText(this, "Success!", Toast.LENGTH_LONG).show();
-            return;
+            if (validatePassword(username, password)) {
+                // exit out of login page
+                Intent toHome = new Intent(this, MainActivity.class);
+                toHome.putExtra("Message", "Logged in!");
+                Toast.makeText(this, "Logged in!", Toast.LENGTH_LONG).show();
+                startActivityForResult(toHome, 6);
+            } else {
+                Toast.makeText(this, "Username and password do not match. Try again.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -85,9 +92,7 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-            // this waits for up to 2 seconds
-            // it's a bit of a hack because it's not truly asynchronous
-            // but it should be okay for our purposes (and is a lot easier)
+            // waits for up to 2 seconds; not truly asynchronous but OK for our purposes
             executor.awaitTermination(2, TimeUnit.SECONDS);
 
         }
