@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity{
     protected String message;
     protected boolean loggedIn = false;
 
-    protected String userId = "64457da3399ed294e92e24ad";
+    protected String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
