@@ -82,10 +82,17 @@ public class CreateAccount extends AppCompatActivity {
         }
     }
 
+    public void onLoginButtonClick(View view) {
+        System.out.println("onLoginButtonClick");
+        Intent in = new Intent(this, Login.class);
+        in.putExtra("Message", "random message; login time");
+        startActivityForResult(in, 3);
+    }
+
     /**
      *
      */
-    private boolean checkUsername(String username) {
+    static boolean checkUsername(String username) {
         boolean[] inDatabase = new boolean[1];
 
         // creates new thread and connects to database running on local machine
