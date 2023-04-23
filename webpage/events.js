@@ -49,7 +49,7 @@ async function findEventsAndDisplay() {
                     // newListGroupHTML += "<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>";
 
                     // Add edit button (placeholder)
-                    newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href=\"/editEvent?name='
+                    newListGroupHTML += '<a class="btn btn-outline-warning btn-sm" href=\"/editEvent?name='
                     + event.name + '" role="button">Edit</a>';
                     // '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t'
 
