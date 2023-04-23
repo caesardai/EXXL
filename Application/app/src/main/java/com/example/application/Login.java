@@ -8,6 +8,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,9 @@ public class Login extends AppCompatActivity {
         if (!CreateAccount.checkUsername(username)) {
             Toast.makeText(this, "Username not in system.\nTry again or create an account.", Toast.LENGTH_LONG).show();
             return;
+        } else {
+            Toast.makeText(this, "Success!", Toast.LENGTH_LONG).show();
+            return;
         }
     }
 
@@ -42,5 +52,48 @@ public class Login extends AppCompatActivity {
         Intent in = new Intent(this, CreateAccount.class);
         in.putExtra("Message", "random message; new account time");
         startActivityForResult(in, 1);
+    }
+
+    /**
+     * @return true if the password and username match; false otherwise
+     */
+    private boolean validatePassword(String username, String password) {
+        boolean[] inDatabase = new boolean[1];
+        System.out.println("validatePassword");
+        System.out.println(username + " " + password);
+
+        // creates new thread and connects to database running on local machine
+        try {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute( () -> {
+                try {
+                    // assumes that there is a server running on the AVD's host on port 3000
+                    URL url = new URL("http://10.0.2.2:3000/validatePassword?username=" + username +
+                            "&password=" + password);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.connect();
+
+                    Scanner in = new Scanner(url.openStream());
+                    String response = in.nextLine();
+
+                    System.out.println(Boolean.parseBoolean(response));
+                    inDatabase[0] = Boolean.parseBoolean(response);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            // this waits for up to 2 seconds
+            // it's a bit of a hack because it's not truly asynchronous
+            // but it should be okay for our purposes (and is a lot easier)
+            executor.awaitTermination(2, TimeUnit.SECONDS);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inDatabase[0];
     }
 }

@@ -55,7 +55,8 @@ async function populateUserDatabase() {
         firstName: "Ed",
         lastName: "Shin",
         username: "eds", 
-        pronouns: "He/Him", 
+        pronouns: "He/Him",
+        password: "edsPass", 
         // smHandle: "EdisCool",
         eventPostPermissions: true,
         eventRegisterPermissions: true,
@@ -70,6 +71,7 @@ async function populateUserDatabase() {
         firstName: "Xavier",
         lastName: "DeVore",
         username: "xavierd", 
+        password: "xavierdPass", 
     });
     await newUser2.save()
 
@@ -77,6 +79,7 @@ async function populateUserDatabase() {
         firstName: "Leo",
         lastName: "Costa",
         username: "leoc", 
+        password: "leocPass", 
     });
     await newUser3.save()
 
@@ -84,6 +87,7 @@ async function populateUserDatabase() {
         firstName: "Xufeng",
         lastName: "Dai",
         username: "xufengd", 
+        password: "xufengdPass", 
     });
     await newUser4.save()
     

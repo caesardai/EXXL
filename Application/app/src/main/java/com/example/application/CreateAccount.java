@@ -70,6 +70,8 @@ public class CreateAccount extends AppCompatActivity {
             return;
         }
 
+        System.out.println("password = " + password + "; repassword = " + repassword);
+
         // add to database
         boolean successfulAdd = addUser(firstName, lastName, username, password);
         if (!successfulAdd) {
@@ -78,6 +80,7 @@ public class CreateAccount extends AppCompatActivity {
             // exit out of registration page
             Intent toHome = new Intent(this, MainActivity.class);
             toHome.putExtra("Message", "Registered!");
+            Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();
             startActivityForResult(toHome, 4);
         }
     }
@@ -134,6 +137,7 @@ public class CreateAccount extends AppCompatActivity {
      */
     private boolean addUser(String firstName, String lastName, String username, String password) {
         boolean[] inDatabase = new boolean[1];
+        System.out.println("Add User");
         System.out.println(firstName + " " + lastName + " " + username + " " + password);
 
         // creates new thread and connects to database running on local machine
@@ -144,7 +148,8 @@ public class CreateAccount extends AppCompatActivity {
                     // assumes that there is a server running on the AVD's host on port 3000
                     URL url = new URL("http://10.0.2.2:3000/addUser?firstName=" + firstName +
                             "&lastName=" + lastName +
-                            "&username=" + username);
+                            "&username=" + username +
+                            "&password=" + password);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.connect();

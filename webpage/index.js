@@ -89,26 +89,20 @@ app.use('/addUser', async(req, res) => {
 	var firstName = req.query.firstName;
 	var lastName = req.query.lastName;
 	var username = req.query.username;
-
+	var password = req.query.password;
+	
 	var newUser = new User({
 		firstName: firstName,
 		lastName: lastName,
 		username: username, 
+		password: password
 	});
 
-	if (!username || !firstName || !lastName) {
-		console.log("Username not specified");
+	if (!username || !firstName || !lastName || !password) {
+		console.log("Field(s) not specified");
 		res.send("false");
 	}
 	else {
-		// await newUser.validate(function (err) {
-		// 	if (err) res.send("false");
-		// 	else { // validation passed
-		// 		newUser.save();
-		// 		res.send("true"); 
-		// 	}
-		// });
-
 		let error;
 		try {
 			await newUser.save();
@@ -117,7 +111,7 @@ app.use('/addUser', async(req, res) => {
 		} catch (err) {
 			console.log("error");
 			res.send("false");
-		}		
+		}
 	}
 })
 
