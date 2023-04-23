@@ -114,20 +114,19 @@ app.use('/addUser', async(req, res) => {
 	var lastName = req.query.lastName;
 	var username = req.query.username;
 	var password = req.query.password;
-	
-	var newUser = new User({
-		firstName: firstName,
-		lastName: lastName,
-		username: username, 
-		password: password
-	});
 
 	if (!username || !firstName || !lastName || !password) {
 		console.log("Field(s) not specified");
 		res.send("false");
 	}
 	else {
-		let error;
+		var newUser = new User({
+			firstName: firstName,
+			lastName: lastName,
+			username: username, 
+			password: password
+		});
+
 		try {
 			await newUser.save();
 			console.log("true");
@@ -171,6 +170,39 @@ app.use('/findEvents', async(req, res) => {
 		res.send(events);
 	}
 })
+
+// add event endpoint
+app.get('/addEvent', async function(req, res) {
+	var name = req.query.name;
+	var date = req.query.date;
+	var location = req.query.location;
+	var host = req.query.host;
+	var description = req.query.description;
+
+	if (!name || !date || !location || !host) {
+		console.log("Field(s) not specified");
+		res.send("false");
+	}
+	else {
+		var newEvent = new Event({
+			name: name,
+			date: date,
+			location: location, 
+			certification: false,
+			host: host
+			// description: description
+		});
+
+		try {
+			await newEvent.save();
+			console.log("true");
+			res.send("true");
+		} catch (err) {
+			console.log("error");
+			res.send("false");
+		}
+	}
+});
 
 // delete event endpoint
 app.get('/deleteEvent', async function(req, res) {
@@ -235,7 +267,6 @@ app.get('/deleteGroup', async(req, res) => {
 	});
 
 })
-
 
 // hotspots page endpoint
 app.get('/hotspots', function(req, res)  {

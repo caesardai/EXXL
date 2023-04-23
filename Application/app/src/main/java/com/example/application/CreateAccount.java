@@ -78,8 +78,9 @@ public class CreateAccount extends AppCompatActivity {
             Toast.makeText(this, "Error creating account. Please try again later.", Toast.LENGTH_LONG).show();
         } else {
             // exit out of registration page
-            Intent toHome = new Intent(this, MainActivity.class);
-            toHome.putExtra("Message", "Registered!");
+            Intent toHome = new Intent(this, AccountPageLoggedIn.class);
+            MainActivity.setUsername(username);
+            toHome.putExtra("User", username);
             Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();
             startActivityForResult(toHome, 4);
         }
@@ -136,7 +137,7 @@ public class CreateAccount extends AppCompatActivity {
      * @return whether the addition was successful
      */
     private boolean addUser(String firstName, String lastName, String username, String password) {
-        boolean[] inDatabase = new boolean[1];
+        boolean[] success = new boolean[1];
         System.out.println("Add User");
         System.out.println(firstName + " " + lastName + " " + username + " " + password);
 
@@ -158,7 +159,7 @@ public class CreateAccount extends AppCompatActivity {
                     String response = in.nextLine();
 
                     System.out.println(Boolean.parseBoolean(response));
-                    inDatabase[0] = Boolean.parseBoolean(response);
+                    success[0] = Boolean.parseBoolean(response);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -174,7 +175,7 @@ public class CreateAccount extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return inDatabase[0];
+        return success[0];
     }
 }
 

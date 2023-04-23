@@ -7,7 +7,7 @@ var eventSchema = new mongoose.Schema({
     date: {type : String, required : true},
     location: {type: String, required : true, unique : true},
     host: {type : String, required : true},
-    certification: {type : Boolean, requied : true},
+    certification: {type : Boolean, required : true},
     description: {type: String},
     // interestedUsers: {type : []},
     // eventChat: {type : {}}
