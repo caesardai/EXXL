@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.util.EventLog;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity{
     private static final int ACTIVITY_ID = 1;
     protected String message;
     protected boolean loggedIn = false;
+
+    protected String userId = "64457da3399ed294e92e24ad";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.bottom_nav_4:
                         // go to account page
                         if (!loggedIn) {
-                            nav_account.putExtra("Message", "random message; hello");
+                            nav_account.putExtra("message", "random message; hello");
                             startActivityForResult(nav_account, ACTIVITY_ID);
                         }
                         return true;
@@ -70,7 +74,6 @@ public class MainActivity extends AppCompatActivity{
                 return false;
             }
         });
-
     }
 
 
@@ -107,12 +110,18 @@ public class MainActivity extends AppCompatActivity{
                 android.R.layout.simple_selectable_list_item, arrayList);
         listView.setAdapter(adapter);
 
-        // create listener for onClick in the Listview
-        // THIS DOESN'T DO ANYTHING YET - FOR OPENING EVENTS (next iteration)
+        Intent viewEvent = new Intent(this, ViewSingleEvent.class);
+
+        // create listener for onClick in the Listview, opens a single event
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+                EventObject eventObject = arrayList.get(position);
+                String eventId = eventObject.getAttribute("_id");
                 view.setSelected(true);
+                viewEvent.putExtra("eventId", eventId);
+                viewEvent.putExtra("userId", userId);
+                startActivityForResult(viewEvent, (int) id);
             }
         });
     }

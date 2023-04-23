@@ -12,7 +12,24 @@ public class EventObject {
 
     JSONObject jsonObject;
 
+    public EventObject() {}
+
     public EventObject(JSONObject inputJsonObject){
+        jsonObject = inputJsonObject;
+    }
+
+    public String getAttribute(String key) {
+        try {
+            return (String)jsonObject.get(key);
+        }
+        catch (JSONException e) {
+            // uh oh
+            e.printStackTrace();
+            return e.toString();
+        }
+    }
+
+    public void set(JSONObject inputJsonObject) {
         jsonObject = inputJsonObject;
     }
 
