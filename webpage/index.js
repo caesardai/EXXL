@@ -171,6 +171,53 @@ app.use('/findEvents', async(req, res) => {
 	}
 })
 
+// find single event endpoint
+app.use('/findSingleEvent', async(req, res) => {
+	var event = await Event.find({"_id": req.query.id})
+	if (!event) {
+		res.send( { "response" : "error: event not found" }); 
+	}
+	else {
+		res.send(event);
+	}
+})
+
+app.use('/addUserEvent',  async function(req, res) {
+	var eventId = req.query.eventId
+	var userId = req.query.userId
+	if (!eventId) {
+		console.log("error: event not specified"); 
+	}
+	else {
+		if (!userId) {
+			console.log("error: user not specified"); 
+		}
+		else {
+			try {
+				var event = await Event.find({"_id": eventId})
+				if (!event) {
+					console.log("error: event not found"); 
+				}
+				else {
+					var action = { '$push' : {'userEvents' : event} }
+					var updatedUser = await User.findOneAndUpdate({_id: userId}, action, { new : true});
+					if (!updatedUser) {
+						console.log("User not found");
+					}
+					else {
+						console.log("Update success!");
+						console.log(updatedUser);
+					}
+					console.log(updatedUser)
+				}
+			}
+			catch (err) {
+				console.error("Error in updating", err);
+			}
+		}
+	}
+})
+
 // add event endpoint
 app.get('/addEvent', async function(req, res) {
 	var name = req.query.name;
@@ -226,6 +273,7 @@ app.get('/editEvent', async function(req, res) {
 	res.sendFile(path.join(__dirname + '/editEvents.html'));
 });
 
+// update event endpoint
 app.use('/updateEvent', async function(req, res) {
 	var filter = req.body.name;
 	var action = {'$set' : {'name' : req.body.name, 'date' :  req.body.date, 'loaction' : req.body.location, 'host' : req.body.location, 'certification' : req.body.certification} }

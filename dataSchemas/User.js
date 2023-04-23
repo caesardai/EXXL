@@ -12,7 +12,7 @@ var userSchema = new mongoose.Schema({
     // list of users this user has interacted with
     interactedUsers: {type : [] },
     // list of event data for this user
-    userEvents: {type : {} }
+    userEvents: {type : [] }
     // INSERT HERE chats
 });
 

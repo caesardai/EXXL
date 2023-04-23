@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".AccountPageNoLogin" />
         <activity android:name=".CreateAccount" />
+        <activity android:name=".ViewSingleEvent" />
         <activity android:name=".Login" />
         <activity android:name=".CreateEvent" />
         <activity android:name=".AccountPageLoggedIn" />
