@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#" onClick="window.location.reload();">Homepage <span class="sr-only"></span></a>
+            <a class="nav-item nav-link active" href="#" onClick="window.location.href='/';">Homepage <span class="sr-only"></span></a>
             <a class="nav-item nav-link" href="#" onclick="window.location.href='/users';">User Data</a>
             <a class="nav-item nav-link" href="#" onclick="window.location.href='/events';">Event Data</a>
             <a class="nav-item nav-link" href="#" onclick="window.location.href='/groups';">Group Data</a>
@@ -35,18 +35,17 @@
     </nav>
   
 <form action="/updateEvent" method="post">
-Name: <input name="name">
-<p>
-Date: <input name="date">
-<p>
-location: <input name="location">
-<p>
-host: <input name="host">
-<p>
-certification: <input name="certification">
-<p>
-<input type="submit" value="Submit form!">
-
+  Name: <input name="name">
+  <p>
+  Date: <input name="date">
+  <p>
+  Location: <input name="location">
+  <p>
+  Host: <input name="host">
+  <p>
+  Certification: <input name="certification">
+  <p>
+  <input type="submit" value="Submit form!">
 </form>
 <script type="text/javascript" src="./events.js"></script>
 

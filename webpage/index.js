@@ -68,6 +68,77 @@ app.use('/findUsers', async(req, res) => {
 	}
 })
 
+app.use('/checkForUsername', async(req, res) => {
+	var username = req.query.username;
+	if (!username) {
+		console.log("Username not specified");
+	}
+	else {
+		var user = await User.findOne({ username: username }).exec();
+		console.log(username);
+		if (user) {
+			res.send("true");
+		}
+		else {
+			res.send("false");
+		}
+	}
+})
+
+app.use('/validatePassword', async(req, res) => {
+	var username = req.query.username;
+	var password = req.query.password;
+	if (!username) {
+		console.log("Username not specified");
+	}
+	if (!password) {
+		console.log("Password not specified");
+	}
+	else {
+		var user = await User.findOne({ username: username }).exec();
+		if (user) {
+			console.log(user);
+			if (password == user.password) 
+				res.send("true");
+			else
+				res.send("false");
+		}
+		else {
+			res.send("false");
+		}
+	}
+})
+
+app.use('/addUser', async(req, res) => {
+	var firstName = req.query.firstName;
+	var lastName = req.query.lastName;
+	var username = req.query.username;
+	var password = req.query.password;
+	
+	var newUser = new User({
+		firstName: firstName,
+		lastName: lastName,
+		username: username, 
+		password: password
+	});
+
+	if (!username || !firstName || !lastName || !password) {
+		console.log("Field(s) not specified");
+		res.send("false");
+	}
+	else {
+		let error;
+		try {
+			await newUser.save();
+			console.log("true");
+			res.send("true");
+		} catch (err) {
+			console.log("error");
+			res.send("false");
+		}
+	}
+})
+
 app.get('/deleteUser', async function(req, res)  {
 	var user = req.query.username;
 	if (!user) {

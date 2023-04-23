@@ -15,7 +15,10 @@ public class AccountPageNoLogin extends AppCompatActivity {
     }
 
     public void onLoginButtonClick(View view) {
-        System.out.println("TODO: go to login page");
+        System.out.println("onLoginButtonClick");
+        Intent in = new Intent(this, Login.class);
+        in.putExtra("Message", "random message; login time");
+        startActivityForResult(in, 3);
     }
 
     public void onNewAccountButtonClick(View view) {
