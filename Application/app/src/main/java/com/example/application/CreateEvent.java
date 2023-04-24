@@ -27,42 +27,42 @@ public class CreateEvent extends AppCompatActivity {
 
         String name = ((EditText) findViewById(R.id.name)).getText().toString().trim();
         if (name.isEmpty()) {
-            Toast.makeText(this, "Error: please specify event name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error: please specify event name.", Toast.LENGTH_LONG).show();
             return;
         }
 
         String date = ((EditText) findViewById(R.id.date)).getText().toString().trim();
         if (date.isEmpty()) {
-            Toast.makeText(this, "Error: please specify date", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify date.", Toast.LENGTH_LONG).show();
             return;
         }
 
         String location = ((EditText) findViewById(R.id.location)).getText().toString().trim();
         if (location.isEmpty()) {
-            Toast.makeText(this, "Error: please specify location", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify location.", Toast.LENGTH_LONG).show();
             return;
         }
 
         String description = ((EditText) findViewById(R.id.description)).getText().toString().trim();
 
         // add to database
-//        boolean successfulAdd = addEvent(name, date, location, description);
-//        if (!successfulAdd) {
-//            Toast.makeText(this, "Error creating account. Please try again later.", Toast.LENGTH_LONG).show();
-//        } else {
-//            // exit out of registration page
-//            Intent toHome = new Intent(this, MainActivity.class);
-//            toHome.putExtra("Message", "Registered!");
-//            Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();
-//            startActivityForResult(toHome, 4);
-//        }
+        boolean successfulAdd = addEvent(name, date, location, MainActivity.getUsername(), description);
+        if (!successfulAdd) {
+            Toast.makeText(this, "Error creating account. Please try again later.", Toast.LENGTH_LONG).show();
+        } else {
+            // exit out of registration page
+            Intent toHome = new Intent(this, MainActivity.class);
+            toHome.putExtra("Message", "Registered!");
+            Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();
+            startActivityForResult(toHome, 4);
+        }
     }
 
     /**
      * Adds an event to the database using Node
      * @return whether the event addition was successful (true or false)
      */
-    private boolean addEvent(String name, String date, String location, String description) {
+    private boolean addEvent(String name, String date, String location, String host, String description) {
         boolean[] success = new boolean[1];
         System.out.println("Add Event");
 
@@ -76,7 +76,7 @@ public class CreateEvent extends AppCompatActivity {
                             "&date=" + date +
                             "&location=" + location +
                             "&description=" + description +
-                            "&host=" + "leoc");
+                            "&host=" + host);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.connect();

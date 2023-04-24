@@ -29,20 +29,20 @@ public class CreateAccount extends AppCompatActivity {
 
         String firstName = ((EditText) findViewById(R.id.first_name)).getText().toString().trim();
         if (firstName.isEmpty()) {
-            Toast.makeText(this, "Error: please specify first name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify first name.", Toast.LENGTH_LONG).show();
             return;
         }
         System.out.println(firstName); // look under Run for print statements
 
         String lastName = ((EditText) findViewById(R.id.last_name)).getText().toString().trim();
         if (lastName.isEmpty()) {
-            Toast.makeText(this, "Error: please specify last name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify last name.", Toast.LENGTH_LONG).show();
             return;
         }
 
         String username = ((EditText) findViewById(R.id.username)).getText().toString().trim();
         if (username.isEmpty()) {
-            Toast.makeText(this, "Error: please specify username", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify username.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -56,17 +56,17 @@ public class CreateAccount extends AppCompatActivity {
         String repassword = ((EditText) findViewById(R.id.repassword)).getText().toString();
 
         if (password.isEmpty()) {
-            Toast.makeText(this, "Error: please specify password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify password.", Toast.LENGTH_LONG).show();
             return;
         }
 
         if (repassword.isEmpty()) {
-            Toast.makeText(this, "Error: please confirm password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please confirm password.", Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!password.equals(repassword)) {
-            Toast.makeText(this, "Error: passwords do not match", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Passwords do not match. Try again.", Toast.LENGTH_LONG).show();
             return;
         }
 

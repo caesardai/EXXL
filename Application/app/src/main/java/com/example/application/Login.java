@@ -27,13 +27,13 @@ public class Login extends AppCompatActivity {
 
         String username = ((EditText) findViewById(R.id.username)).getText().toString().trim();
         if (username.isEmpty()) {
-            Toast.makeText(this, "Please specify username", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify username.", Toast.LENGTH_LONG).show();
             return;
         }
 
         String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
         if (password.isEmpty()) {
-            Toast.makeText(this, "Please specify password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please specify password.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
                 // exit out of login page
                 Intent toHome = new Intent(this, MainActivity.class);
                 toHome.putExtra("Message", "Logged in!");
-                Toast.makeText(this, "Logged in!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
                 MainActivity.setUsername(username);
                 startActivityForResult(toHome, 6);
             } else {
