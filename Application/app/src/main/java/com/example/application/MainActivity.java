@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.util.EventLog;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,11 +25,13 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -37,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
     private static String username;
 
     protected String userId = "";
+
+    protected BottomSheetDialog bottomSheetDialog;
+
+    protected boolean seenBottomSheetDialog = false;
+
+    // new ArrayList to store events and map to the ListView
+    protected ArrayList<EventObject> eventsArrayList = new ArrayList<EventObject>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     /**
      * populates the ListView component with events from the database
      */
@@ -106,16 +117,13 @@ public class MainActivity extends AppCompatActivity {
         // find created ListView
         ListView listView = (ListView) findViewById(R.id.event_list);
 
-        // new ArrayList to store events and map to the ListView
-        ArrayList<EventObject> arrayList = new ArrayList<EventObject>();
-
         try {
 
             // add each event to arrayList
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject currObject = (JSONObject) jsonArray.get(i);
                 EventObject currEvent = new EventObject(currObject);
-                arrayList.add(currEvent);
+                eventsArrayList.add(currEvent);
             }
         }
         catch (JSONException e) {
@@ -123,10 +131,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // map arrayList (storing events) to the ListView
-        ArrayAdapter<EventObject> adapter = new ArrayAdapter<EventObject>(this,
-                android.R.layout.simple_selectable_list_item, arrayList);
-        listView.setAdapter(adapter);
+        setEventAdapter();
 
         Intent viewEvent = new Intent(this, ViewSingleEvent.class);
 
@@ -134,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
-                EventObject eventObject = arrayList.get(position);
+                EventObject eventObject = eventsArrayList.get(position);
                 String eventId = eventObject.getAttribute("_id");
                 view.setSelected(true);
                 viewEvent.putExtra("eventId", eventId);
@@ -142,6 +147,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(viewEvent, (int) id);
             }
         });
+    }
+
+    private void setEventAdapter() {
+
+        // find created ListView
+        ListView listView = (ListView) findViewById(R.id.event_list);
+
+        // map arrayList (storing events) to the ListView
+        ArrayAdapter<EventObject> adapter = new ArrayAdapter<EventObject>(this,
+                android.R.layout.simple_selectable_list_item, eventsArrayList);
+        listView.setAdapter(adapter);
     }
 
     /**
@@ -207,4 +223,52 @@ public class MainActivity extends AppCompatActivity {
     public static String getUsername() {
         return MainActivity.username;
     }
+    public void filterEvents(MenuItem item) {
+        showBottomSheetDialog();
+    }
+
+    private void showBottomSheetDialog() {
+
+        if (!seenBottomSheetDialog) {
+            bottomSheetDialog = new BottomSheetDialog(this);
+            seenBottomSheetDialog = true;
+            bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
+        }
+
+        bottomSheetDialog.show();
+
+        ListView listView = bottomSheetDialog.findViewById(R.id.filter_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+                listView.setItemChecked(position, true);
+                switch (position) {
+                    case 0:
+                        filterByDate(); break;
+                    case 1:
+                        filterByName(); break;
+                    case 2:
+                        filterByLocation(); break;
+                }
+                bottomSheetDialog.dismiss();
+            }
+        });
+    }
+
+    private void filterByDate(){
+        eventsArrayList.sort(new DateSorter());
+        setEventAdapter();
+    }
+
+    private void filterByName(){
+        eventsArrayList.sort(new NameSorter());
+        setEventAdapter();
+    }
+
+    private void filterByLocation(){
+        eventsArrayList.sort(new LocationSorter());
+        setEventAdapter();
+    }
+
 }
