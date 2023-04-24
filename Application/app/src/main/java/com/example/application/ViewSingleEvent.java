@@ -1,11 +1,8 @@
 package com.example.application;
 
-import android.media.metrics.Event;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,7 +82,7 @@ public class ViewSingleEvent extends AppCompatActivity {
                             // JSONArray contains one event (the event we want), so get that
                             JSONObject responseObject  = responseArray.getJSONObject(0);
 
-                            eventObject.set(responseObject);
+                            eventObject.setObject(responseObject);
                         }
                         catch (Exception e) {
                             e.printStackTrace();

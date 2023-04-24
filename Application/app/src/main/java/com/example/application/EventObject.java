@@ -29,8 +29,41 @@ public class EventObject {
         }
     }
 
-    public void set(JSONObject inputJsonObject) {
+    public void setObject(JSONObject inputJsonObject) {
         jsonObject = inputJsonObject;
+    }
+
+    public String getDate() {
+        try {
+            return (String)jsonObject.get("date");
+        }
+        catch (JSONException e) {
+            // uh oh
+            e.printStackTrace();
+            return e.toString();
+        }
+    }
+
+    public String getName() {
+        try {
+            return (String)jsonObject.get("name");
+        }
+        catch (JSONException e) {
+            // uh oh
+            e.printStackTrace();
+            return e.toString();
+        }
+    }
+
+    public String getLocation() {
+        try {
+            return (String)jsonObject.get("location");
+        }
+        catch (JSONException e) {
+            // uh oh
+            e.printStackTrace();
+            return e.toString();
+        }
     }
 
     @Override
