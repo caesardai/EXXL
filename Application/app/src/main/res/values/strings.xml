@@ -7,7 +7,7 @@
     <string name="events_page_title">Active Events</string>
     <string name="events_filter_button">Filter Events</string>
     <string-array name="filters">
-        <item>Date</item>
+        <item>Date (Recent First)</item>
         <item>Name (A-Z)</item>
         <item>Location (A-Z)</item>
     </string-array>

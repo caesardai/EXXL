@@ -184,12 +184,12 @@ app.use('/findSingleEvent', async(req, res) => {
 
 app.use('/addUserEvent',  async function(req, res) {
 	var eventId = req.query.eventId
-	var userId = req.query.userId
+	var username = req.query.username
 	if (!eventId) {
 		console.log("error: event not specified"); 
 	}
 	else {
-		if (!userId) {
+		if (!username) {
 			console.log("error: user not specified"); 
 		}
 		else {
@@ -200,7 +200,7 @@ app.use('/addUserEvent',  async function(req, res) {
 				}
 				else {
 					var action = { '$push' : {'userEvents' : event} }
-					var updatedUser = await User.findOneAndUpdate({_id: userId}, action, { new : true});
+					var updatedUser = await User.findOneAndUpdate({username: username}, action, { new : true});
 					if (!updatedUser) {
 						console.log("User not found");
 					}

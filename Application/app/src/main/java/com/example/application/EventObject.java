@@ -25,7 +25,7 @@ public class EventObject {
         catch (JSONException e) {
             // uh oh
             e.printStackTrace();
-            return e.toString();
+            return "";
         }
     }
 

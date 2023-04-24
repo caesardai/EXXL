@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected String message;
     private static String username;
 
-    protected String userId = "";
-
     protected BottomSheetDialog bottomSheetDialog;
 
     protected boolean seenBottomSheetDialog = false;
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 String eventId = eventObject.getAttribute("_id");
                 view.setSelected(true);
                 viewEvent.putExtra("eventId", eventId);
-                viewEvent.putExtra("userId", userId);
+                viewEvent.putExtra("username", username);
                 startActivityForResult(viewEvent, (int) id);
             }
         });
@@ -258,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void filterByDate(){
         eventsArrayList.sort(new DateSorter());
+        Collections.reverse(eventsArrayList);
         setEventAdapter();
     }
 

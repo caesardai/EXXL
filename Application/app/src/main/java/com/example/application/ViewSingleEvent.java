@@ -23,7 +23,8 @@ public class ViewSingleEvent extends AppCompatActivity {
     protected String message;
 
     protected String eventId;
-    protected String userId;
+
+    protected String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class ViewSingleEvent extends AppCompatActivity {
         setContentView(R.layout.view_single_event);
 
         eventId = getIntent().getStringExtra("eventId");
-        userId = getIntent().getStringExtra("userId");
+        username = getIntent().getStringExtra("username");
 
         EventObject eventObject = callSingleEventAPI(eventId);
 
@@ -106,7 +107,7 @@ public class ViewSingleEvent extends AppCompatActivity {
 
     public void onJoinEvent(View v) {
 
-        if (userId.equals("")) {
+        if (username.equals(null)) {
             Toast.makeText(this, "Please log in to join an event", Toast.LENGTH_LONG).show();
         }
         else {
@@ -117,7 +118,7 @@ public class ViewSingleEvent extends AppCompatActivity {
                 executor.execute( () -> {
                             try {
 
-                                String urlString = "http://10.0.2.2:3000/addUserEvent?eventId=" + eventId + "&userId=" + userId;
+                                String urlString = "http://10.0.2.2:3000/addUserEvent?eventId=" + eventId + "&username=" + username;
                                 // assumes that there is a server running on the AVD's host on port 3000
                                 // and that it has a /test endpoint that returns a JSON object with
                                 // a field called "message"
