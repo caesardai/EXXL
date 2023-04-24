@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int ACTIVITY_ID = 1;
     protected String message;
-    protected boolean loggedIn = false;
+    private static String username;
 
     protected String userId = "";
 
@@ -56,10 +57,14 @@ public class MainActivity extends AppCompatActivity{
         // load events from database
         loadEvents();
 
+        findViewById(R.id.addEventFloatingButton).setVisibility(View.VISIBLE);
+
         System.out.println("Hi");
+
         // set up nav bar
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
-        Intent nav_account = new Intent(this, AccountPageNoLogin.class);
+        Intent navAccountSignedOut = new Intent(this, AccountPageNoLogin.class);
+        Intent navAccountSignedIn = new Intent(this, AccountPageLoggedIn.class);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,9 +82,12 @@ public class MainActivity extends AppCompatActivity{
 
                     case R.id.bottom_nav_4:
                         // go to account page
-                        if (!loggedIn) {
-                            nav_account.putExtra("message", "random message; hello");
-                            startActivityForResult(nav_account, ACTIVITY_ID);
+                        if (username == null) {
+                            navAccountSignedOut.putExtra("Message", "random message; hello");
+                            startActivityForResult(navAccountSignedOut, ACTIVITY_ID);
+                        } else {
+                            navAccountSignedIn.putExtra("Message", "random message; hello");
+                            startActivityForResult(navAccountSignedIn, 500);
                         }
                         return true;
                 }
@@ -198,6 +206,13 @@ public class MainActivity extends AppCompatActivity{
         return jsonArray;
     }
 
+    public static void setUsername(String username) {
+        MainActivity.username = username;
+    }
+
+    public static String getUsername() {
+        return MainActivity.username;
+    }
     public void filterEvents(MenuItem item) {
         showBottomSheetDialog();
     }

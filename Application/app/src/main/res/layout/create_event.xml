@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom|end"
-    android:background="@color/md_theme_dark_onPrimary"
+    android:background="@color/md_theme_dark_outline"
     android:orientation="vertical"
     app:layout_anchorGravity="bottom"
-    tools:context=".Login">
+    tools:context=".CreateEvent">
 
     <TextView
         android:id="@+id/title"
@@ -17,13 +17,45 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="30dp"
-        android:text="Login"
+        android:text="Create New Event"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#FEFFFB"
         android:textSize="40sp" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_outline"
+        android:hint="Event Name"
+        android:padding="15dp"
+        android:drawableLeft="@drawable/event_name"
+        android:drawablePadding="7sp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_outline"
+        android:hint="Date"
+        android:padding="15dp"
+        android:drawablePadding="7sp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:drawableLeft="@drawable/calendar_edit"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -32,31 +64,29 @@
         android:background="@drawable/login_outline"
         android:drawableLeft="@drawable/person"
         android:drawablePadding="7sp"
-        android:hint="Username"
+        android:hint="Location"
         android:padding="15dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/login_outline"
-        android:drawableLeft="@drawable/security"
-        android:drawablePadding="7sp"
-        android:hint="Password"
-        android:inputType="textPassword"
+        android:hint="Description"
         android:padding="15dp"
+        android:drawablePadding="7sp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
+        android:drawableLeft="@drawable/description"
         android:textSize="15sp" />
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -64,31 +94,9 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="0dp"
-        android:text="Sign In"
-        android:onClick="onSignInButtonClick"
+        android:onClick="onCreateEventButtonClick"
+        android:text="Submit"
         android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/DontHave"
-        android:layout_width="358dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:text="Don't have an account?"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/Register"
-        android:layout_width="358dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="30dp"
-        android:text="Register"
-        android:textAlignment="center"
-        android:textColor="#FFF283"
-        android:textSize="10sp"
-        android:onClick="onNewAccountButtonClick"/>
 
 </LinearLayout>
