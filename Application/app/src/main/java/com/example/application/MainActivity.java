@@ -27,9 +27,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_ID = 1;
     protected String message;
@@ -45,9 +46,9 @@ public class MainActivity extends AppCompatActivity{
         // load events from database
         loadEvents();
 
-        findViewById(R.id.addEventFloatingButton).setVisibility(View.VISIBLE);
-
-        System.out.println("Hi");
+        // if logged in, show add event button
+       if (username != null)
+            findViewById(R.id.newEventFAB).setVisibility(View.VISIBLE);
 
         // set up nav bar
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
@@ -80,6 +81,15 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                 }
                 return false;
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.newEventFAB);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), CreateEvent.class);
+                startActivity(i);
             }
         });
     }

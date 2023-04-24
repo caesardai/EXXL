@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
         } else {
             if (validatePassword(username, password)) {
                 // exit out of login page
-                Intent toHome = new Intent(this, AccountPageLoggedIn.class);
+                Intent toHome = new Intent(this, MainActivity.class);
                 toHome.putExtra("Message", "Logged in!");
                 Toast.makeText(this, "Logged in!", Toast.LENGTH_LONG).show();
                 MainActivity.setUsername(username);
