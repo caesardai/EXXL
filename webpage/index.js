@@ -177,18 +177,24 @@ app.use('/findEventsByUser', async(req, res) => {
 		console.log("error: user not specified"); 
 		res.send([]);
 	} else {
-		var user = await User.findOne({ 'username' : user });
-		if (!user){
-			console.log("Error: user not found");
-			res.send([]);
-		} else {
-			var events = user[userEvents];
-			if (!events){
-				return res.send([]);
-			} else {
-				res.json({[userEvents]: events})
-			}
-		}
+		// var user = await User.findOne({ 'username' : user });
+		// if (!user){
+		// 	console.log("Error: user not found");
+		// 	res.send([]);
+		// } else {
+		// 	var events = user[userEvents];
+		// 	if (!events){
+		// 		return res.send([]);
+		// 	} else {
+		// 		res.json({[userEvents]: events})
+		// 	}
+		// }
+		const result = await Event.find({ joinedUsers: {$elemMatch: {$eq: username}}});
+		const result2 = await Event.find({'host': username})
+		const combinedRes = result.concat(result2);
+
+		res.json(combinedRes);
+
 
 	}
 	
@@ -217,22 +223,34 @@ app.use('/addUserEvent',  async function(req, res) {
 		}
 		else {
 			try {
-				var event = await Event.find({"_id": eventId})
-				if (!event) {
+				var currEvent = await Event.findOne({"_id": eventId})
+				if (!currEvent) {
 					console.log("error: event not found"); 
-				}
-				else {
-					var action = { '$push' : {'userEvents' : event} }
-					var updatedUser = await User.findOneAndUpdate({username: username}, action, { new : true});
-					if (!updatedUser) {
-						console.log("User not found");
+				} else{
+					var currentUsers = currEvent.joinedUsers;
+					console.log(currEvent.joinedUsers);
+					console.log(typeof currEvent.joinedUsers);
+					if (!(currentUsers === undefined) && currentUsers.includes(username)){
+						console.log("error: user already joined");
+					} else {
+						//var action = { '$push' : {'userEvents' : event} }
+						var updatedEvent = await Event.findOneAndUpdate(
+							{ "_id" : eventId },
+							{ $push: {joinedUsers: username}},
+							{ new: true}
+						);
+						if (!updatedEvent) {
+							console.log("Error adding user");
+						}
+						else {
+							console.log("Update success!");
+							console.log(updatedEvent);
+						}
+						console.log(updatedEvent)
+
 					}
-					else {
-						console.log("Update success!");
-						console.log(updatedUser);
-					}
-					console.log(updatedUser)
 				}
+				
 			}
 			catch (err) {
 				console.error("Error in updating", err);

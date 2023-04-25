@@ -66,6 +66,16 @@ public class EventObject {
         }
     }
 
+    public String[] getJoinedUsers(){
+        try {
+            return (String[])jsonObject.get("joinedUsers");
+        } catch (JSONException e) {
+            // uh oh
+            e.printStackTrace();
+            return new String[]{e.toString()};
+        }
+    }
+
     @Override
     public String toString(){
         try {

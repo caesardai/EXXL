@@ -11,8 +11,7 @@ var userSchema = new mongoose.Schema({
     eventRegisterPermissions: {type : Boolean},
     // list of users this user has interacted with
     interactedUsers: {type : [] },
-    // list of event data for this user
-    userEvents: {type : [] }
+    // userEvents: {type : [] } //removed 4/25
     // INSERT HERE chats
 });
 
