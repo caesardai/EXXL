@@ -171,6 +171,29 @@ app.use('/findEvents', async(req, res) => {
 	}
 })
 
+app.use('/findEventsByUser', async(req, res) => {
+	var username = req.query.username
+	if (!username) {
+		console.log("error: user not specified"); 
+		res.send([]);
+	} else {
+		var user = await User.findOne({ 'username' : user });
+		if (!user){
+			console.log("Error: user not found");
+			res.send([]);
+		} else {
+			var events = user[userEvents];
+			if (!events){
+				return res.send([]);
+			} else {
+				res.json({[userEvents]: events})
+			}
+		}
+
+	}
+	
+})
+
 // find single event endpoint
 app.use('/findSingleEvent', async(req, res) => {
 	var event = await Event.find({"_id": req.query.id})

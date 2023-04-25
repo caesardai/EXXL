@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,7 +78,21 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.bottom_nav_3:
-                        return true;
+                        // My events activity
+                        if (true) { // change to if (username != null) after testing
+                            username = "eds";
+                            Intent i = new Intent(MainActivity.this, MyEventsActivity.class);
+                            i.putExtra("loggedIn", true);
+                            String usernameMessage = "tempUsername";
+                            i.putExtra("username", usernameMessage);
+                            startActivity(i);
+                            return true;
+                        }else {
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.bottom_navigation),
+                                    "You must create an account first!", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                            return false;
+                        }
 
                     case R.id.bottom_nav_4:
                         // go to account page

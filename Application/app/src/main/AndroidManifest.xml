@@ -26,6 +26,7 @@
         <activity android:name=".Login" />
         <activity android:name=".CreateEvent" />
         <activity android:name=".AccountPageLoggedIn" />
+        <activity android:name=".MyEventsActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

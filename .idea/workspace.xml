@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="486ef639-2fc2-4700-82f5-367c46b47338" name="Changes" comment="" />
+    <list default="true" id="486ef639-2fc2-4700-82f5-367c46b47338" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/example/application/MyEventsActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/app/src/main/res/layout/activity_my_events.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/app/src/main/res/menu/my_events_top_app_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/src/main/java/com/example/application/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/example/application/MainActivity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +34,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/caesardai/Desktop/EXXL"
+    "last_opened_file_path": "C:/Users/edwar/CS/EXXL/Application"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
