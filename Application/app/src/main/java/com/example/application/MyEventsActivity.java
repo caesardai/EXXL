@@ -79,8 +79,8 @@ public class MyEventsActivity extends AppCompatActivity {
             executor.execute(() -> {
                         try {
                             // assumes that there is a server running on the AVD's host on port 3000
-                            //URL url = new URL("http://10.0.2.2:3000/findEvents");
-                            URL url = new URL("http://10.0.2.2:3000/findEventsByUser?username=" + username);
+                            URL url = new URL("http://10.0.2.2:3000/findEvents");
+                            //URL url = new URL("http://10.0.2.2:3000/findEventsByUser?username=" + username);
 
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("GET");
