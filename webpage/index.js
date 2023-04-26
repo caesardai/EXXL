@@ -383,6 +383,40 @@ app.use('/verifyEvent', async function(req, res) {
 	}
 });
 
+// verify event
+app.use('/verifyZipEvent', async function(req, res) {
+    var eventzip = req.query.zipcode;
+    if (!eventzip) {
+        console.log("error: event not specified");
+        res.status(400).send("Error: event not specified");
+    }
+    else {
+        // Create a regular expression that matches the first 5 digits of the zipcode
+        var regex = new RegExp('^' + eventzip);
+
+        // Update the query to use the regular expression
+        var events = await Event.find({"zipcode": regex});
+        
+        if (!events || events.length === 0) {
+            console.log("error: event not found");
+            res.status(404).send("Error: event not found");
+        } else {
+            // You can update the verification status for all the events
+            // that match the zipcode pattern, or choose a specific event
+            // based on other criteria.
+            var updatedEvents = await Event.updateMany(
+                {"zipcode": regex},
+                {certification: true}
+            );
+
+            res.status(200).send("Event verification updated");
+        }
+    }
+});
+
+
+
+
 
 
 // Groups endpoint
@@ -426,23 +460,22 @@ app.get('/findHotspots', async (req, res) => {
 	if (events.length === 0) {
 	  res.send([]);
 	} else {
-	  for (let i = 0; i < events.length; i++) {
-		if (events[i].zipcode) {
-		  const zipCodeSubstring = events[i].zipcode.substring(0, 5);
-		  if (hotspotMap.has(zipCodeSubstring)) {
-			hotspotMap.set(zipCodeSubstring, hotspotMap.get(zipCodeSubstring) + 1);
-		  } else {
-			hotspotMap.set(zipCodeSubstring, 1);
-		  }
+		for (let i = 0; i < events.length; i++) {
+			if (events[i].zipcode) {
+		  		const zipCodeSubstring = events[i].zipcode.substring(0, 5);
+		  	if (hotspotMap.has(zipCodeSubstring)) {
+				hotspotMap.set(zipCodeSubstring, hotspotMap.get(zipCodeSubstring) + 1);
+		  	} else {
+				hotspotMap.set(zipCodeSubstring, 1);
+		  	}
 		}
-	  }
-  
-	  const sortedEntries = Array.from(hotspotMap.entries()).sort(([, a], [, b]) => b - a);
-	  const sortedHotspotMap = new Map(sortedEntries);
-	  console.log(sortedHotspotMap)
-	  res.send(Object.fromEntries(sortedHotspotMap));
 	}
-  });
+  
+	const sortedEntries = Array.from(hotspotMap.entries()).sort(([, a], [, b]) => b - a);
+	console.log(sortedEntries);
+	res.send(sortedEntries);
+	}
+});
   
 // app.get('/findHotspots', async(req, res) => {
 // 	// var hotspots = await Hotspot.find({});

@@ -29,16 +29,21 @@ async function findHotspotsAndDisplay() {
         } else {
             var newListGroupHTML = "";
             var empty = true;
+            var verified = false;
             console.log("here");
             await response.json().then((data) => {
-                data.forEach((event) => {
+                Object.entries(data).forEach(([zipCodeSubstring, count]) => {
+                    var checkmark = " x";
+                    if (verified === true) {
+                        checkmark = " ✓";
+                    }
                     empty = false;
 
-                    const zipCodeSubstring = event.zipcode.substring(0, 5);
                     console.log(zipCodeSubstring);
                     newListGroupHTML += '<div class="shadow-none p-3 mb-2 bg-light rounded">';
-                    // newListGroupHTML += "<b>" + zipCodeSubstring + "<br>";
-                    newListGroupHTML += '<button type="button" class="btn btn-outline-warning btn-sm">Verify</button>\t';
+                    newListGroupHTML += "<b>Hotspot zipcode: " + count +  "</b><br>";
+                    newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href="#" role="button" onclick="verifyZipEvent(event, '
+                    + count + ')">Verify</a>';
                     newListGroupHTML += '</div>';  // Close the <div> tag opened earlier
                 });
             });
@@ -51,6 +56,22 @@ async function findHotspotsAndDisplay() {
     });
 }
 
+async function verifyZipEvent(event, zipCode) {
+    event.preventDefault();
+    try {
+        const response = await fetch('/verifyZipEvent?zipcode=' + zipCode);
+        if (response.ok) {
+            const targetElement = event.target;
+            const parentDiv = targetElement.parentNode;
+            const textNode = parentDiv.childNodes[0];
+            textNode.nodeValue = textNode.nodeValue.replace(" x", " ✓");
+        } else {
+            console.error("Error verifying the zipcode:", response.status);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
 
 // // creating HTML to contain hotspot items
