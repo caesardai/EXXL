@@ -74,19 +74,13 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("hello!");
                         return true;
 
-                    case R.id.bottom_nav_2:
-                        return true;
-
                     case R.id.bottom_nav_3:
                         // My events activity
-                        if (true) { // change to if (username != null) after testing
-                            username = "eds";
+                        if (username != null) {
                             Intent i = new Intent(MainActivity.this, MyEventsActivity.class);
-                            i.putExtra("loggedIn", true);
                             String usernameMessage = "tempUsername";
-                            i.putExtra("username", usernameMessage);
                             startActivity(i);
-                            return true;
+                            return false;
                         }else {
                             Snackbar snackbar = Snackbar.make(findViewById(R.id.bottom_navigation),
                                     "You must create an account first!", Snackbar.LENGTH_SHORT);

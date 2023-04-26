@@ -172,30 +172,16 @@ app.use('/findEvents', async(req, res) => {
 })
 
 app.use('/findEventsByUser', async(req, res) => {
-	var username = req.query.username
+	var username = req.query.username;
+	console.log(username);
 	if (!username) {
 		console.log("error: user not specified"); 
 		res.send([]);
 	} else {
-		// var user = await User.findOne({ 'username' : user });
-		// if (!user){
-		// 	console.log("Error: user not found");
-		// 	res.send([]);
-		// } else {
-		// 	var events = user[userEvents];
-		// 	if (!events){
-		// 		return res.send([]);
-		// 	} else {
-		// 		res.json({[userEvents]: events})
-		// 	}
-		// }
 		const result = await Event.find({ joinedUsers: {$elemMatch: {$eq: username}}});
-		const result2 = await Event.find({'host': username})
+		const result2 = await Event.find({host : username});
 		const combinedRes = result.concat(result2);
-
 		res.json(combinedRes);
-
-
 	}
 	
 })
@@ -209,6 +195,30 @@ app.use('/findSingleEvent', async(req, res) => {
 	else {
 		res.send(event);
 	}
+})
+
+app.use('/leaveEvent', async(req, res) => {
+	var username = req.query.username;
+	var eventID = req.query.eventID;
+	if (!eventID || !username){
+		res.send("fail");
+	} else {
+		const result = await Event.findOne({"_id": eventID});
+		const eventUsers = result.joinedUsers;
+		const eventHost = result.host;
+		if (username == eventHost){
+			res.send("isHost");
+		} else {
+			var temp = await Event.findOneAndUpdate(
+				{ "_id": eventID },
+				{ $pull: { joinedUsers: username } },
+				{ new: true }
+			)
+
+			res.send("success")
+		}
+	}
+
 })
 
 app.use('/addUserEvent',  async function(req, res) {

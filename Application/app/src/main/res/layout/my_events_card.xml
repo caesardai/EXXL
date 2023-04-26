@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     >
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/event_card"
         android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                 android:id="@+id/card_text_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="text3"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary"
@@ -51,17 +50,27 @@
                 android:id="@+id/card_text_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:text="text3"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                />
+            <TextView
+                android:id="@+id/card_text_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="text3"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary"
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/card_leave_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="button1"
+                android:text="Leave Event"
                 android:layout_gravity="center_horizontal"
                 style="?attr/borderlessButtonStyle"
                 />
