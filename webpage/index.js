@@ -267,7 +267,7 @@ app.get('/addEvent', async function(req, res) {
 	var host = req.query.host;
 	var description = req.query.description;
 
-	if (!name || !date || !location || !host) {
+	if (!name || !date || !location || !host || !description) {
 		console.log("Field(s) not specified");
 		res.send("false");
 	}
@@ -277,8 +277,8 @@ app.get('/addEvent', async function(req, res) {
 			date: date,
 			location: location, 
 			certification: false,
-			host: host
-			// description: description
+			host: host,
+			description: description
 		});
 
 		try {
