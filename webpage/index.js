@@ -186,6 +186,7 @@ app.use('/findEventsByUser', async(req, res) => {
 	
 })
 
+
 // find single event endpoint
 app.use('/findSingleEvent', async(req, res) => {
 	var event = await Event.find({"_id": req.query.id})
@@ -327,7 +328,7 @@ app.get('/editEvent', async function(req, res) {
 // update event endpoint
 app.use('/updateEvent', async function(req, res) {
 	var filter = req.body.name;
-	var action = {'$set' : {'name' : req.body.name, 'date' :  req.body.date, 'loaction' : req.body.location, 'host' : req.body.location, 'certification' : req.body.certification} }
+	var action = {'$set' : {'name' : req.body.name, 'date' :  req.body.date, 'location' : req.body.location, 'host' : req.body.location, 'certification' : req.body.certification} }
 	
 	await Event.findOneAndUpdate(filter, action, async function(err, orig) {
 		if (err) {
@@ -339,6 +340,34 @@ app.use('/updateEvent', async function(req, res) {
 		}
  	});
 });
+
+
+
+// verify event
+app.use('/verifyEvent', async function(req, res) {
+	var eventname = req.query.name
+	if (!eventname) {
+		console.log("error: event not specified"); 
+	}
+	else {
+		var event = await Event.findOne({"name": eventname});
+		if (!event) {
+			console.log("error: event not found"); 
+		} else {
+			var verified = event.certification
+			if (verified) {
+				console.log("event is already verified")
+			} else {
+			var updateVerification = await Event.findOneAndUpdate(
+				{"name" : eventname},
+				{certification : true}
+				);
+			}
+		}
+	}
+});
+
+
 
 // Groups endpoint
 app.get('/groups', async function(req, res) {

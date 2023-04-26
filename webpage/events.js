@@ -29,16 +29,25 @@ async function findEventsAndDisplay() {
             // creating HTML to contain the events
             var newListGroupHTML = "";
             var empty = true;
+            const hotspotMap = new Map();
 
             await response.json().then((data) => {
                 data.forEach((event) => {
                     // keeps track of whether any events are added to the HTML
                     empty = false;
+                    
+                    // process for hotspot data
+                    // if (hotspotMap.has(event.zipcode.substring(0,5))) {
+                    //     hotspotMap.set(event.zipcode.substring(0,5), hotspotMap.get(event.zipcode.substring(0,5)) + 1);
+                    // } else {
+                    //     hotspotMap.set(event.zipcode.substring(0,5), 1);
+                    // }
+
 
                     // Create box with one event's information
                     newListGroupHTML += '<div class="shadow-none p-3 mb-2 bg-light rounded">';
-                    newListGroupHTML += "<b>" + event.name + "</b><br>" + event.location + 
-                        "; Host: " + event.host + ";";
+                    newListGroupHTML += "<b>" + event.name + "</b><br>" + event.location + " " + event.zipcode
+                        "; Host: " + event.host ;
 
                     if (event.certification)
                         newListGroupHTML += " ✓";
@@ -49,7 +58,7 @@ async function findEventsAndDisplay() {
                     // newListGroupHTML += "<br><a href=\"/deleteEvent?name=" + event.name + "\">[Delete]</a><br><br>";
 
                     // Add edit button (placeholder)
-                    newListGroupHTML += '<a class="btn btn-outline-warning btn-sm" href=\"/editEvent?name='
+                    newListGroupHTML += '<a class="btn btn-outline-warning btn-sm" href=\"/updateEvent?name='
                     + event.name + '" role="button">Edit</a>';
                     // '<button type="button" class="btn btn-outline-warning btn-sm">Edit</button>\t'
 
@@ -57,8 +66,15 @@ async function findEventsAndDisplay() {
                     newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href=\"/deleteEvent?name='
                                         + event.name + '" role="button">Delete</a>';
 
+                    // Add Verify button
+                    newListGroupHTML += '<a class="btn btn-outline-danger btn-sm" href=\"/verifyEvent?name='
+                                        + event.name + '" role="button">Verify</a>';
+
                     newListGroupHTML += "</div>";
                 });
+                // for (var [key, value] of hotspotMap) {
+                //     console.log('Key is: ' + key + '. Value is: ' + value);
+                // }
             });
 
             // if not events are added to the HTML (no events in database)...

@@ -21,10 +21,10 @@ async function main() {
     await populateEventDatabase();
     await populateHotspotDatabase();
     await populateGroupDatabase();
-
+    
     // print users currently in database
-    var users = await Event.find({});
-    console.log(users);
+    // var users = await Event.find({});
+    // console.log(users);
 
     // var hotspots = await Hotspot.find({});
     // console.log(hotspots);
@@ -94,43 +94,6 @@ async function populateUserDatabase() {
 
 }
 
-async function populateEventDatabase() {
-    var newEvent1 = new Event({
-        name: "Plenary", 
-        date: "Jan 1st, 2001",
-        location: "Haverford College",
-        host: "Wendy Raymond",
-        certification: true,
-        description: " ",
-        // interestedUsers: ["Alice", "Bob", "Cathy"],
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent1.save();
-
-    var newEvent2 = new Event({
-        name: "Bryn Mawr Plenary", 
-        date: "Feb 2nd, 2002",
-        location: "Bryn Mawr College",
-        host: "Kimberly Cassidy",
-        certification: true,
-        description: " "
-        // interestedUsers: ["Alice", "Bob", "Cathy"]
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent2.save();
-
-    var newEvent3 = new Event({
-        name: "No Plenary",
-        date: "March 3rd, 2003",
-        location: "Swarthmore College",
-        host: "Valerie Smith",
-        certification: false,
-        description: " ",
-        // interestedUsers: [],
-        // eventChat:"", skipping event chat for this iteration
-    });
-    await newEvent3.save();
-}
 
 /**
  * function to populate the hotspot database
@@ -194,6 +157,125 @@ async function populateGroupDatabase(){
             ]
         })
         await newGroup2.save();
+}
+
+async function populateEventDatabase() {
+    var newEvent1 = new Event({
+        name: "Plenary", 
+        date: "Jan 1st, 2001",
+        location: "Haverford College",
+        host: "Wendy Raymond",
+        certification: true,
+        description: " ",
+        // interestedUsers: ["Alice", "Bob", "Cathy"],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent1.save();
+
+    var newEvent2 = new Event({
+        name: "Bryn Mawr Plenary", 
+        date: "Feb 2nd, 2002",
+        location: "Bryn Mawr College",
+        host: "Kimberly Cassidy",
+        certification: true,
+        description: " "
+        // interestedUsers: ["Alice", "Bob", "Cathy"]
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent2.save();
+
+    var newEvent3 = new Event({
+        name: "No Plenary",
+        date: "March 3rd, 2003",
+        location: "Swarthmore College",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19041-2342"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent3.save();
+
+    // hot spot by location name
+    var newEvent4 = new Event({
+        name: "Bobs cookout",
+        date: "May 20th, 2003",
+        location: "Bryn Mawr Gas Station",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode:"19041-1325"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent4.save();
+
+    var newEvent5 = new Event({
+        name: "HC Student Reunion",
+        date: "May 20th, 2003",
+        location: "Bryn Mawr Gas Station1",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19041-1321"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent5.save();
+
+    var newEvent6 = new Event({
+        name: "Group Yoga Session",
+        date: "May 20th, 2003",
+        location: "Bryn Mawr Gas Station2",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19010-1232"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent6.save();
+
+    var newEvent7 = new Event({
+        name: "Farmer's Market",
+        date: "May 20th, 2003",
+        location: "Bryn Mawr Gas Station3",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19010-1324"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent7.save();
+
+    var newEvent8 = new Event({
+        name: "CS Department Trip",
+        date: "May 20th, 2003",
+        location: "Bryn Mawr Gas Station4",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19010-4321"
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent8.save();
+
+    var newEvent9 = new Event({
+        name: "Water Slide",
+        date: "April 1st, 2003",
+        location: "Haverford College5",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19041-1234",
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent9.save();
+    
 }
 
 
