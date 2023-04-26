@@ -159,17 +159,33 @@ app.use('/events', async(req, res) => {
 });
 
 // find events endpoint
-app.use('/findEvents', async(req, res) => {
-	var events = await Event.find({});
+app.use('/findEvents', async (req, res) => {
+	const hotspotMap = new Map();
+	const events = await Event.find({});
+	const zip = req.query.zip;
+	console.log(zip);
+  
 	if (events.length === 0) {
-		console.log([])
-		res.send([]);
+	  console.log([]);
+	  res.send([]);
+	} else {
+	  for (let i = 0; i < events.length; i++) {
+		// console.log(events[i].name);
+		if (events[i].zipcode) { // Check if the zipcode property exists
+		  const zipCodeSubstring = events[i].zipcode.substring(0, 5);
+		  if (hotspotMap.has(zipCodeSubstring)) {
+			hotspotMap.set(zipCodeSubstring, hotspotMap.get(zipCodeSubstring) + 1);
+		  } else {
+			hotspotMap.set(zipCodeSubstring, 1);
+		  }
+		}
+	  }
+  
+	//   console.log(hotspotMap);
+	  res.send(events);
 	}
-	else {
-		console.log(events)
-		res.send(events);
-	}
-})
+  });
+  
 
 app.use('/findEventsByUser', async(req, res) => {
 	var username = req.query.username;
@@ -402,15 +418,71 @@ app.get('/hotspots', function(req, res)  {
 })
 
 // find hotspots endpoint
-app.get('/findHotspots', async(req, res) => {
-	var hotspots = await Hotspot.find({});
-	if (hotspots.length === 0) {
-		res.send([]);
+app.get('/findHotspots', async (req, res) => {
+	const hotspotMap = new Map();
+	const events = await Event.find({});
+	const zip = req.query.zip;
+  
+	if (events.length === 0) {
+	  res.send([]);
+	} else {
+	  for (let i = 0; i < events.length; i++) {
+		if (events[i].zipcode) {
+		  const zipCodeSubstring = events[i].zipcode.substring(0, 5);
+		  if (hotspotMap.has(zipCodeSubstring)) {
+			hotspotMap.set(zipCodeSubstring, hotspotMap.get(zipCodeSubstring) + 1);
+		  } else {
+			hotspotMap.set(zipCodeSubstring, 1);
+		  }
+		}
+	  }
+  
+	  const sortedEntries = Array.from(hotspotMap.entries()).sort(([, a], [, b]) => b - a);
+	  const sortedHotspotMap = new Map(sortedEntries);
+	  console.log(sortedHotspotMap)
+	  res.send(Object.fromEntries(sortedHotspotMap));
 	}
-	else {
-		res.send(hotspots);
-	}
-})
+  });
+  
+// app.get('/findHotspots', async(req, res) => {
+// 	// var hotspots = await Hotspot.find({});
+// 	// if (hotspots.length === 0) {
+// 	// 	res.send([]);
+// 	// }
+// 	// else {
+// 	// 	res.send(hotspots);
+// 	// }
+// 	const hotspotMap = new Map();
+//   	const events = await Event.find({});
+//   	const zip = req.query.zip;
+//   	console.log(zip);
+
+//   	if (events.length === 0) {
+//    		console.log([]);
+//     	res.send([]);
+//   	} else {
+//     	for (let i = 0; i < events.length; i++) {
+//       		// console.log(events[i].name);
+//       	if (events[i].zipcode) { // Check if the zipcode property exists
+//        		const zipCodeSubstring = events[i].zipcode.substring(0, 5);
+//         if (hotspotMap.has(zipCodeSubstring)) {
+//         	hotspotMap.set(zipCodeSubstring, hotspotMap.get(zipCodeSubstring) + 1);
+//         } else {
+//         	hotspotMap.set(zipCodeSubstring, 1);
+//         }
+//       }
+//     }
+
+//     // Convert the Map to an array of key-value pairs and sort by values in descending order
+//     const sortedEntries = Array.from(hotspotMap.entries()).sort(([, a], [, b]) => b - a);
+
+//     // Create a new Map with the sorted entries
+//     const sortedHotspotMap = new Map(sortedEntries);
+
+//     // console.log(sortedHotspotMap);
+//     res.send(Object.fromEntries(sortedHotspotMap)); // Convert the Map to an object before sending it
+//   }
+// });
 
 // delete hotspot endpoint 
 app.get('/deleteHotspot', async(req, res) => {

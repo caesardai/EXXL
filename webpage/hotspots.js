@@ -18,41 +18,63 @@ var document = new jsdom.JSDOM(html).window.document;
  * this function is currently called when hotspots.html loads (using onload function)
  */
 async function findHotspotsAndDisplay() {
-
-    // getting the HTML content of the card the hotspots will be displayed on 
     var hotspotListCard = document.getElementById("hotspotListCard");
 
-    // getting hotspots from database
-    await fetch('http://localhost:3000/findHotspots').then((response) => {
+    await fetch('http://localhost:3000/findHotspots').then(async (response) => {
+        console.log("here1");
+
         if (!response.ok) {
             const message = `Error: ${response.status}`;
             throw new Error(message);
-        }
-        else {
+        } else {
+            var newListGroupHTML = "";
+            var empty = true;
+            console.log("here");
+            await response.json().then((data) => {
+                data.forEach((event) => {
+                    empty = false;
 
-            // creating HTML to contain hotspot items
-            var newListGroupHTML = 
-            "<div class='list-group'>";
-
-            // adding hotspot items and remove button to newListGroupHTML 
-            response.json().then((data) => {
-                var numHotspots = 0;
-                data.forEach((hotspot) => {
-                    numHotspots += 1
-                    newListGroupHTML += "<button type='button' class='list-group-item list-group-item-action' id='" + hotspot._id + "'>Longitude: " +
-                    hotspot.longitude + ", Latitude: " + hotspot.latitude + "</button>" + 
-                    "<a class='btn btn-outline-danger btn-sm' onclick='onDeleteClick(this.id)' id='delete" + numHotspots + "'>Delete</a>";
+                    const zipCodeSubstring = event.zipcode.substring(0, 5);
+                    console.log(zipCodeSubstring);
+                    newListGroupHTML += '<div class="shadow-none p-3 mb-2 bg-light rounded">';
+                    // newListGroupHTML += "<b>" + zipCodeSubstring + "<br>";
+                    newListGroupHTML += '<button type="button" class="btn btn-outline-warning btn-sm">Verify</button>\t';
+                    newListGroupHTML += '</div>';  // Close the <div> tag opened earlier
                 });
-                newListGroupHTML += "</div>";
-
-                // adding HTML we've made here to hotspots.html
-                var newElement = document.createElement("div");
-                newElement.innerHTML = newListGroupHTML;
-                hotspotListCard.appendChild(newElement);  
             });
+
+            // Add the generated HTML to the hotspotListCard element
+            var newElement = document.createElement("div");
+            newElement.innerHTML = newListGroupHTML;
+            hotspotListCard.appendChild(newElement);
         }
     });
 }
+
+
+
+// // creating HTML to contain hotspot items
+// var newListGroupHTML = 
+// "<div class='list-group'>";
+
+// // adding hotspot items and remove button to newListGroupHTML 
+// response.json().then((data) => {
+//     // var numHotspots = 0;
+//     data.forEach((event) => {
+//         empty = false;
+//         // numHotspots += 1
+//         newListGroupHTML += "<button type='button' class='list-group-item' id='" + event.zipcode + "'>Location: " +
+//         event.location + 
+//         "<a class='btn btn-outline-danger btn-sm' onclick='onDeleteClick(this.id)' id='delete" + "'>Verify</a>";
+//         newListGroupHTML += "</div>";
+
+//     });
+    
+//     // adding HTML we've made here to hotspots.html
+//     var newElement = document.createElement("div");
+//     newElement.innerHTML = newListGroupHTML;
+//     hotspotListCard.appendChild(newElement);  
+// });
 
 /**
  * function to delete a hotspot from the hotspots page and database

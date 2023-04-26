@@ -19,7 +19,7 @@ async function main() {
     await clearDatabase();
     await populateUserDatabase();
     await populateEventDatabase();
-    await populateHotspotDatabase();
+    // await populateHotspotDatabase();
     await populateGroupDatabase();
     
     // print users currently in database
@@ -98,19 +98,19 @@ async function populateUserDatabase() {
 /**
  * function to populate the hotspot database
  */
-async function populateHotspotDatabase() {
-    var newHotspot1 = new Hotspot({
-        longitude: "-75.285462",
-        latitude: "40.0068"
-    })
-    await newHotspot1.save();
+// async function populateHotspotDatabase() {
+//     var newHotspot1 = new Hotspot({
+//         longitude: "-75.285462",
+//         latitude: "40.0068"
+//     })
+//     await newHotspot1.save();
 
-    var newHotspot2 = new Hotspot({
-        longitude: "-75.1720",
-        latitude: "39.9012"
-    })
-    await newHotspot2.save();
-}
+//     var newHotspot2 = new Hotspot({
+//         longitude: "-75.1720",
+//         latitude: "39.9012"
+//     })
+//     await newHotspot2.save();
+// }
 
 async function populateGroupDatabase(){
         // GROUPS
@@ -167,6 +167,7 @@ async function populateEventDatabase() {
         host: "Wendy Raymond",
         certification: true,
         description: " ",
+        zipcode: "06258-5768"
         // interestedUsers: ["Alice", "Bob", "Cathy"],
         // eventChat:"", skipping event chat for this iteration
     });
@@ -178,7 +179,8 @@ async function populateEventDatabase() {
         location: "Bryn Mawr College",
         host: "Kimberly Cassidy",
         certification: true,
-        description: " "
+        description: " ",
+        zipcode: "19010-5768"
         // interestedUsers: ["Alice", "Bob", "Cathy"]
         // eventChat:"", skipping event chat for this iteration
     });
@@ -205,7 +207,7 @@ async function populateEventDatabase() {
         host: "Valerie Smith",
         certification: false,
         description: " ",
-        zipcode:"19041-1325"
+        zipcode:"19010-1325"
         // interestedUsers: [],
         // eventChat:"", skipping event chat for this iteration
     });
@@ -275,6 +277,33 @@ async function populateEventDatabase() {
         // eventChat:"", skipping event chat for this iteration
     });
     await newEvent9.save();
+
+    var newEvent10 = new Event({
+        name: "Jumping bag",
+        date: "April 1st, 2003",
+        location: "Haverford College6",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19003-1234",
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent10.save();
+
+    var newEvent11 = new Event({
+        name: "picnic",
+        date: "April 1st, 2003",
+        location: "Haverford College7",
+        host: "Valerie Smith",
+        certification: false,
+        description: " ",
+        zipcode: "19003-5234",
+        // interestedUsers: [],
+        // eventChat:"", skipping event chat for this iteration
+    });
+    await newEvent11.save();
+
     
 }
 
