@@ -3,7 +3,9 @@ package com.example.application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,13 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
+
+        Spinner spinner = (Spinner) findViewById(R.id.pronoun_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.pronouns_array, R.layout.spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     public void onCreateAccountButtonClick(View view) {
@@ -78,7 +87,7 @@ public class CreateAccount extends AppCompatActivity {
             Toast.makeText(this, "Error creating account. Please try again later.", Toast.LENGTH_LONG).show();
         } else {
             // exit out of registration page
-            Intent toHome = new Intent(this, AccountPageLoggedIn.class);
+            Intent toHome = new Intent(this, MainActivity.class);
             MainActivity.setUsername(username);
             toHome.putExtra("User", username);
             Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();

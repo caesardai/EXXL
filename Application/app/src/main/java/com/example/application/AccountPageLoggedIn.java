@@ -12,4 +12,12 @@ public class AccountPageLoggedIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_page_logged_in);
     }
+
+    public void onLogOutButtonClick(View view) {
+        System.out.println("onLogOutButtonClick");
+        MainActivity.setUsername(null);
+        Intent in = new Intent(this, MainActivity.class);
+        in.putExtra("Message", "we're out!");
+        startActivityForResult(in, 300);
+    }
 }

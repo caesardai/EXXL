@@ -5,8 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_dark_primary"
-    tools:context=".AccountPageNoLogin">
+    tools:context=".AccountPageLoggedIn">
 
+    <Button
+        android:id="@+id/newAccountButton"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="416dp"
+        android:gravity="center"
+        android:onClick="onLogOutClick"
+        android:text="Log Out"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
