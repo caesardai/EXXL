@@ -1,5 +1,6 @@
 package com.example.application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ public class ViewSingleEvent extends AppCompatActivity {
 
     protected String username;
 
+    protected int activityId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class ViewSingleEvent extends AppCompatActivity {
 
         eventId = getIntent().getStringExtra("eventId");
         username = getIntent().getStringExtra("username");
+        activityId = getIntent().getIntExtra("activityId", 1);
 
         EventObject eventObject = callSingleEventAPI(eventId);
 
@@ -107,7 +111,7 @@ public class ViewSingleEvent extends AppCompatActivity {
 
     public void onJoinEvent(View v) {
 
-        if (username.equals(null)) {
+        if (username == null) {
             Toast.makeText(this, "Please log in to join an event", Toast.LENGTH_LONG).show();
         }
         else {
@@ -150,6 +154,10 @@ public class ViewSingleEvent extends AppCompatActivity {
                 // uh oh
                 e.printStackTrace();
             }
+
+            Toast.makeText(this, "Event joined!", Toast.LENGTH_LONG).show();
+            Intent mainActivity = new Intent(this, MainActivity.class);
+            startActivityForResult(mainActivity, activityId);
         }
 
 

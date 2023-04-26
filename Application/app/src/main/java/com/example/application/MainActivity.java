@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(true);
                 viewEvent.putExtra("eventId", eventId);
                 viewEvent.putExtra("username", username);
+                viewEvent.putExtra("activityId", id);
                 startActivityForResult(viewEvent, (int) id);
             }
         });
